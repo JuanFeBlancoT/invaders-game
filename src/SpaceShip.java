@@ -55,7 +55,7 @@ public class SpaceShip {
 	}
 
 	public void drawShip() {
-		System.out.println(shieldLoose +"***"+ shieldTime+"****"+shieldColdDown);
+		//System.out.println(shieldLoose +"***"+ shieldTime+"****"+shieldColdDown);
 		app.fill(255);
 		app.circle(posX, posY, shipSize);
 		//other method?
@@ -126,6 +126,14 @@ public class SpaceShip {
 		}
 	}
 	
+	public int getShipSize() {
+		return shipSize;
+	}
+
+	public void setShipSize(int shipSize) {
+		this.shipSize = shipSize;
+	}
+
 	public void shield() {
 		
 		if(shieldColdDown == 0) {

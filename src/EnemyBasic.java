@@ -9,11 +9,14 @@ public class EnemyBasic extends Enemy{
 		enemySize = 60;
 		speed = 4;
 		damage = 1;
+		visible = true;
 	}
 	 
 	public void drawEnemy(PApplet app) {
-		app.fill(200,100,100);
-		app.circle(posX, posY, enemySize);
+		if(visible && health>0) {
+			app.fill(200,100,100);
+			app.circle(posX, posY, enemySize);
+		}
 	}
 	
 	public void move() {

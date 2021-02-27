@@ -3,7 +3,24 @@ import processing.core.PApplet;
 public abstract class Enemy {
 	
 	protected int posX, posY, enemySize, health, speed, points, damage;
+	protected boolean visible;
 	
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
 	public int getPoints() {
 		return points;
 	}

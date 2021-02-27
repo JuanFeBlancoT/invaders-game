@@ -6,41 +6,24 @@ public class Main extends PApplet{
 	
 	public int width = 1600;
 	public int height = 800;
-	private int screen = 1;
-	//screen play
-	SpaceShip player;
-	private int frameCount;
+	private int screen;
 	
-	//test
-	Enemy a;
+	private PlayScreen playScreen;
+	
 	
 	public void settings() {
 		size(width,height);
 	}
 	
 	public void setup() {
-		
-		player = new SpaceShip(this);
-		frameCount = 0;
-		a = new EnemyBasic(this);
+		screen = 1;
+		playScreen = new PlayScreen(this, width, height);
 	}
 	
 	public void draw() {
 		background(40);
 		if(screen==1) {
-			player.drawShip();
-			player.moveShip(0, height);
-			player.shoot();
-			frameCount++;
-			player.eliminateBullet(width);
-			if(frameCount == 40) {
-				player.generateBullet();
-				frameCount = 0;				
-			}
-			
-			//test enemy
-			a.drawEnemy(this);
-			a.move();
+			playScreen.screenEvents(this);
 			
 		}//end screen 1
 	}
@@ -48,16 +31,16 @@ public class Main extends PApplet{
 	public void keyPressed() {
 		switch(key) {
 			case 'w':
-					player.setDir(false);				
+					playScreen.player.setDir(false);				
 				break;
 			case 'd':
-					player.setDir(true);
+				playScreen.player.setDir(true);
 				break;
 			case 'a':
-				player.shipDash(height);
+				playScreen.player.shipDash(height);
 				break;
 			case 'i':
-				player.shield();
+				playScreen.player.shield();
 				break;
 		}
 			
