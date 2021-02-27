@@ -79,6 +79,14 @@ public class SpaceShip {
 		//end shield?
 	}
 	
+	public ArrayList<Bullet> getBullets() {
+		return bullets;
+	}
+
+	public void setBullets(ArrayList<Bullet> bullets) {
+		this.bullets = bullets;
+	}
+
 	public void moveShip(int min, int max) {
 		
 		if(dir && posY<max-shipSize/2 ) {

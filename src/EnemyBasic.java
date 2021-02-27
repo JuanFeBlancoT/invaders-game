@@ -5,9 +5,9 @@ public class EnemyBasic extends Enemy{
 	public EnemyBasic(PApplet app) {
 		super(app);
 		points = 10;
-		health = 2;
+		health = 3;
 		enemySize = 60;
-		speed = 4;
+		speed = 3;
 		damage = 1;
 		visible = true;
 	}
@@ -17,9 +17,14 @@ public class EnemyBasic extends Enemy{
 			app.fill(200,100,100);
 			app.circle(posX, posY, enemySize);
 		}
+		//should this be here ?
+		if(health==0) {
+			setVisible(false);
+		}
 	}
 	
 	public void move() {
 		setPosX(posX-speed);
 	}
+	
 }

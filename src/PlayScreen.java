@@ -30,6 +30,7 @@ public class PlayScreen {
 		//test enemy
 		a.drawEnemy(app);
 		a.move();
+		System.out.println(a.getHealth());
 		
 		handleImpacts();
 	}
@@ -45,6 +46,23 @@ public class PlayScreen {
 		}
 		
 		//enemy traspases the frontier
-	}
+		if( a.isVisible() && a.getPosX()<-a.getEnemySize()) {
+			player.setLifes(player.getLifes()-a.getDamage());
+			a.setVisible(false);
+		}
+		
+		//enemy gets shot
+		for (int i = 0; i < player.getBullets().size(); i++) {
+		
+			if(player.getBullets().get(i).isVisible()==true && a.isVisible()==true && 
+					Math.sqrt((Math.pow((player.getBullets().get(i).getPosX()-a.getPosX()), 2))+
+					(Math.pow((player.getBullets().get(i).getPosY()-a.getPosY()), 2)))<
+					player.getBullets().get(i).getBulletSize()) {
+				
+				a.setHealth(a.getHealth()-1);
+				player.getBullets().get(i).setVisible(false);
+			}
+		}
+	}//end handleImpacts
 	
 }
