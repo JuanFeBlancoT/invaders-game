@@ -4,18 +4,15 @@ import processing.core.PApplet;
 public class PlayScreen {
 	
 	SpaceShip player;
-	private int frameCount, enemiesTimeGen;
+	private int enemiesTimeGen;
 	
 	private ArrayList<Enemy>enemies;
 	
-	private int width, height;
+	private int width;
 	
 	public PlayScreen(PApplet app, int width, int height) {
 		player = new SpaceShip(app);
-		frameCount = 0;
-	
 		this.width = width;
-		this.height = height;
 		enemies = new ArrayList<>();
 		enemiesTimeGen = 0;
 	}
@@ -23,15 +20,14 @@ public class PlayScreen {
 	public void screenEvents(PApplet app) {
 		
 		player.drawShip();
-		player.moveShip(0, height);
+		//player.moveShip(0, height);
 		player.shoot();
-		frameCount++;
 		enemiesTimeGen++;
 		player.eliminateBullet(width);
-		if(frameCount == 40) {
+		/*if(frameCount == 35) {
 			player.generateBullet();
 			frameCount = 0;				
-		}
+		}*/
 		
 		if(enemiesTimeGen==110) {
 			generateEnemies(app);
@@ -42,9 +38,10 @@ public class PlayScreen {
 			enemies.get(i).drawEnemy(app);
 			enemies.get(i).move();
 		}
-		
+		eliminateEnemies();
 		handleImpacts();
 	}
+	
 	
 	public void handleImpacts() {
 		
@@ -54,7 +51,8 @@ public class PlayScreen {
 			for (int j = 0; j < enemies.size() && enemies.get(j)!=null; j++) {
 					
 				//enemy colliding with 
-				if( enemies.get(j).isVisible()==true && Math.sqrt((Math.pow((player.getPosX()-enemies.get(j).getPosX()), 2))+
+				if( player.isVulnerable() && enemies.get(j).isVisible()==true && 
+						Math.sqrt((Math.pow((player.getPosX()-enemies.get(j).getPosX()), 2))+
 						(Math.pow((player.getPosY()-enemies.get(j).getPosY()), 2)))<player.getShipSize()) {
 					
 					player.setLifes(player.getLifes()-enemies.get(j).getDamage());
@@ -90,6 +88,12 @@ public class PlayScreen {
 		
 		Enemy enemieX= new EnemyBasic(app, posX, posY);
 		enemies.add(enemieX);
+	}
+	
+	public void eliminateEnemies() {
+		for (int i = 0; i < enemies.size() && enemies.get(i).isVisible() == false; i++) {
+			enemies.remove(i);
+		}
 	}
 	
 }

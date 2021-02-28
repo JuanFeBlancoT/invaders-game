@@ -15,7 +15,7 @@ public class Bullet {
 	private PApplet app;
 	
 	public Bullet(int posX, int posY, PApplet app) {
-		bulletSize = 15;
+		bulletSize = 20;
 		speed = 5;
 		this.posX = posX;
 		this.posY = posY;

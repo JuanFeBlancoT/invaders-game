@@ -4,8 +4,8 @@ import processing.core.PApplet;
 
 public class SpaceShip {
 	
-	private int posX, posY, shipSize, lifes, dashColdDown, shieldColdDown, shieldTime;
-	private boolean dir, shieldLoose;
+	private int posX, posY, shipSize, lifes, dashColdDown, shieldColdDown, shieldTime, speed, shootColdDown;
+	private boolean dir, shieldLoose, vulnerable;
 	private PApplet app;
 	private ArrayList<Bullet> bullets;
 	
@@ -20,8 +20,19 @@ public class SpaceShip {
 		shieldTime = 40;
 		shieldLoose = false;
 		bullets = new ArrayList<>();
+		vulnerable = true;
+		speed = 6;
+		shootColdDown =0;
 	}
 	
+	public boolean isVulnerable() {
+		return vulnerable;
+	}
+
+	public void setVulnerable(boolean vulnerable) {
+		this.vulnerable = vulnerable;
+	}
+
 	public int getPosX() {
 		return posX;
 	}
@@ -68,6 +79,7 @@ public class SpaceShip {
 		}
 		if(shieldLoose && shieldTime>0) {
 			shieldTime--;
+			vulnerable = false;
 			app.fill(120,120,200);
 		}else{
 			app.fill(255);
@@ -75,8 +87,13 @@ public class SpaceShip {
 		}	
 		if(!shieldLoose) {
 			shieldTime=40;
+			vulnerable=true;
 		}
 		//end shield?
+		//shooting coldD?
+		if(shootColdDown>0) {
+			shootColdDown--;
+		}
 	}
 	
 	public ArrayList<Bullet> getBullets() {
@@ -87,12 +104,12 @@ public class SpaceShip {
 		this.bullets = bullets;
 	}
 
-	public void moveShip(int min, int max) {
+	public void moveShip(int max, boolean dir) {
 		
 		if(dir && posY<max-shipSize/2 ) {
-			posY+=5;
+			posY+=speed;
 		}else if(!dir && posY>shipSize/2){
-			posY-=5;
+			posY-=speed;
 		}
 	}
 	
@@ -115,8 +132,11 @@ public class SpaceShip {
 	}
 	
 	public void generateBullet() {
-		Bullet bullet = new Bullet(posX, posY, app);
-		bullets.add(bullet);
+		if(shootColdDown==0) {
+			Bullet bullet = new Bullet(posX, posY, app);
+			bullets.add(bullet);
+			shootColdDown = 15;
+		}
 	}
 	
 	public void shoot() {
