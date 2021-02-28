@@ -4,7 +4,7 @@ public class EnemyBasicBuff extends Enemy{
 
 	public EnemyBasicBuff(PApplet app, int posX, int posY) {
 		super(app, posX, posY);
-		points = 10;
+		points = 15;
 		health = 2;
 		enemySize = 60;
 		speed = 4;

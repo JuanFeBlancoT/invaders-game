@@ -8,7 +8,7 @@ public class Bullet {
 	
 	public Bullet(int posX, int posY, PApplet app) {
 		bulletSize = 20;
-		speed = 5;
+		speed = 7;
 		this.posX = posX;
 		this.posY = posY;
 		this.app= app;

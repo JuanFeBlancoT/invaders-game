@@ -5,7 +5,7 @@ public class PlayScreen {
 	
 	//Attributes
 	private int width;
-	private int enemiesTimeGen;
+	private int enemiesTimeGen, playTime, minutes, seconds, points;
 	//relations
 	private ArrayList<Enemy>enemies;
 	private SpaceShip player;
@@ -16,10 +16,13 @@ public class PlayScreen {
 		this.width = width;
 		enemies = new ArrayList<>();
 		enemiesTimeGen = 0;
+		playTime = 0;
+		seconds = 0;
+		minutes = 0;
+		points = 0;
 	}
 	
 	public void screenEvents(PApplet app) {
-		
 		player.drawShip();
 		player.shoot();
 		enemiesTimeGen++;
@@ -38,9 +41,33 @@ public class PlayScreen {
 		
 		eliminateEnemies();
 		handleImpacts();
+		
+		timer(app);
+		//test
+		app.textSize(30);
+		app.text("Points: "+points, 1400, 30);
 	}
 	
 	
+	private void timer(PApplet app) {
+		playTime++;
+		if(playTime %60 == 0) {
+			seconds++;
+			playTime = 0;
+		}if(seconds==60) {
+			seconds = 0;
+			minutes++;
+		}
+		app.fill(255);
+		if(minutes<10 && seconds<10) {
+			app.text("0"+minutes+":0"+seconds, 1250, 30);
+		}else if(minutes<10 && seconds>10){
+			app.text("0"+minutes+":"+seconds, 1250, 30);
+		}else {
+			app.text(minutes+":"+seconds, 1250, 30);
+		}
+	}
+
 	public void handleImpacts() {
 		
 		if(enemies.size()>0) {
@@ -71,6 +98,10 @@ public class PlayScreen {
 						
 						enemies.get(j).setHealth(enemies.get(j).getHealth()-1);
 						player.getBullets().get(i).setVisible(false);
+						if(enemies.get(j).getHealth()==0) {
+							points+=enemies.get(j).getPoints();
+						}
+						
 					}
 				}
 			}	
