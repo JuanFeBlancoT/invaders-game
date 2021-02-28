@@ -74,16 +74,16 @@ public class SpaceShip {
 	
 	public void shipDash(int max) {
 		if(dashColdDown==0) {
-			if(!dir && posY>125) {
-				posY-=100;
+			if(!dir && posY>145) {
+				posY-=120;
 				dashColdDown = 120;
-			}else if(!dir && posY<125) {
+			}else if(!dir && posY<145) {
 				posY = 26;
 				dashColdDown = 120;
-			}else if(dir && posY<max-125) {
-				posY += 100;
+			}else if(dir && posY<max-145) {
+				posY += 120;
 				dashColdDown = 120;
-			}else if(dir && posY>max-125) {
+			}else if(dir && posY>max-145) {
 				posY = max-25;
 				dashColdDown = 120;
 			}

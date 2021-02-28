@@ -83,7 +83,14 @@ public class PlayScreen {
 		int posX = (int) (Math.random()*400)+1650;
 		int posY = (int) (Math.random()*730)+30;
 		
-		Enemy enemieX= new EnemyBasic(app, posX, posY);
+		Enemy enemieX;
+		int randomFactor = (int) (Math.random()*2);
+		
+		if(randomFactor==1 || randomFactor ==2) {
+			enemieX = new EnemyBasic(app, posX, posY);
+		}else {
+			enemieX = new EnemyBasicBuff(app, posX, posY);
+		}		
 		enemies.add(enemieX);
 	}
 	

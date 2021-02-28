@@ -12,7 +12,7 @@ public class Main extends PApplet {
 	private boolean up, down, dash, shield, shoot;
 	//relations
 	private PlayScreen playScreen;
-	
+	private MenuScreen menuScreen;
 	
 	public void settings() {
 		size(width,height);
@@ -29,12 +29,14 @@ public class Main extends PApplet {
 		shoot = false;
 		//relations
 		playScreen = new PlayScreen(this, width, height);
-		
+		menuScreen = new MenuScreen(this, width, height);
 	}
 	
 	public void draw() {
 		background(40);
 		if(screen==1) {
+			menuScreen.loadScreen(this);
+		}else if(screen==3) {
 			playScreen.screenEvents(this);
 			keyEvents();
 		}//end screen 1
@@ -45,23 +47,18 @@ public class Main extends PApplet {
 		switch(key) {
 			case 'w':
 				up = true;
-				System.out.println("UP");
 				break;
 			case 'd':
 				down = true;
-				System.out.println("DOWN");
 				break;
 			case 'a':
 				dash = true;
-				System.out.println("DASH");
 				break;
 			case 'i':
 				shield = true;
-				System.out.println("SHIELD");
 				break;
 			case ' ':
 				shoot = true;
-				System.out.println("SHOOT");
 				break;
 		}
 			
@@ -84,7 +81,7 @@ public class Main extends PApplet {
 		case ' ':
 			shoot = false;
 			break;
-	}
+		}
 	}
 	
 	public void keyEvents() {
@@ -109,6 +106,14 @@ public class Main extends PApplet {
 			shoot = false;
 		}
 	}
-
 	
+	public void mouseClicked() {
+		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)-80 && mouseY<(height/2)+20) {
+			screen = 2;
+		}
+		
+		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+40 && mouseY<(height/2)+100) {
+			screen = 3;
+		}
+	}
 } 
