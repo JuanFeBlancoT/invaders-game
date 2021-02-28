@@ -5,10 +5,12 @@ public class Main extends PApplet {
 		PApplet.main("Main");
 	}
 	
+	//Attributes
 	public int width = 1600;
 	public int height = 800;
 	private int screen;
 	private boolean up, down, dash, shield, shoot;
+	//relations
 	private PlayScreen playScreen;
 	
 	
@@ -17,13 +19,16 @@ public class Main extends PApplet {
 	}
 	
 	public void setup() {
+		
+		//Attributes
 		screen = 1;
-		playScreen = new PlayScreen(this, width, height);
 		up = false;
 		down = false;
 		dash = false;
 		shield = false;
 		shoot = false;
+		//relations
+		playScreen = new PlayScreen(this, width, height);
 		
 	}
 	
@@ -31,7 +36,6 @@ public class Main extends PApplet {
 		background(40);
 		if(screen==1) {
 			playScreen.screenEvents(this);
-			//key events
 			keyEvents();
 		}//end screen 1
 	}
@@ -86,22 +90,22 @@ public class Main extends PApplet {
 	public void keyEvents() {
 		
 		if(up) {
-			playScreen.player.moveShip(height, false);
-			playScreen.player.setDir(false);
+			playScreen.getPlayer().moveShip(height, false);
+			playScreen.getPlayer().setDir(false);
 		}
 		if(down) {
-			playScreen.player.moveShip(height, true);
-			playScreen.player.setDir(true);
+			playScreen.getPlayer().moveShip(height, true);
+			playScreen.getPlayer().setDir(true);
 		}
 		if(dash) {
-			playScreen.player.shipDash(height);
+			playScreen.getPlayer().shipDash(height);
 		}
 		if(shield) {
-			playScreen.player.shield();
+			playScreen.getPlayer().shield();
 			shield = false;
 		}
 		if(shoot) {
-			playScreen.player.generateBullet();
+			playScreen.getPlayer().generateBullet();
 			shoot = false;
 		}
 	}

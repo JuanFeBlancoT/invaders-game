@@ -4,25 +4,131 @@ import processing.core.PApplet;
 
 public class SpaceShip {
 	
+	//Attributes
 	private int posX, posY, shipSize, lifes, dashColdDown, shieldColdDown, shieldTime, speed, shootColdDown;
 	private boolean dir, shieldLoose, vulnerable;
+	//relations
 	private PApplet app;
 	private ArrayList<Bullet> bullets;
 	
 	public SpaceShip(PApplet app) {
+		
 		posX = 50;
 		posY = 400;
 		shipSize = 50;
 		lifes = 20;
-		this.app = app;
 		dashColdDown = 0;
 		shieldColdDown = 0;
 		shieldTime = 40;
-		shieldLoose = false;
-		bullets = new ArrayList<>();
-		vulnerable = true;
 		speed = 6;
 		shootColdDown =0;
+		
+		shieldLoose = false;
+		vulnerable = true;
+		
+		this.app = app;
+		
+		bullets = new ArrayList<>();
+	}
+	
+	
+
+	public void drawShip() {
+		app.fill(255);
+		app.circle(posX, posY, shipSize);
+		//other method?
+		if(dashColdDown>0) {
+			dashColdDown--;
+		}
+		//shield????
+		if(shieldColdDown>0) {
+			shieldColdDown--;
+		}
+		if(shieldLoose && shieldTime>0) {
+			shieldTime--;
+			vulnerable = false;
+			app.fill(120,120,200);
+		}else{
+			app.fill(255);
+			shieldLoose = false;
+		}	
+		if(!shieldLoose) {
+			shieldTime=40;
+			vulnerable=true;
+		}
+		//end shield?
+		//shooting coldD?
+		if(shootColdDown>0) {
+			shootColdDown--;
+		}
+	}//end drawShip
+	
+	public void moveShip(int max, boolean dir) {
+		
+		if(dir && posY<max-shipSize/2 ) {
+			posY+=speed;
+		}else if(!dir && posY>shipSize/2){
+			posY-=speed;
+		}
+	}
+	
+	public void shipDash(int max) {
+		if(dashColdDown==0) {
+			if(!dir && posY>125) {
+				posY-=100;
+				dashColdDown = 120;
+			}else if(!dir && posY<125) {
+				posY = 26;
+				dashColdDown = 120;
+			}else if(dir && posY<max-125) {
+				posY += 100;
+				dashColdDown = 120;
+			}else if(dir && posY>max-125) {
+				posY = max-25;
+				dashColdDown = 120;
+			}
+		}
+	}//end shipDash
+	
+	public void generateBullet() {
+		if(shootColdDown==0) {
+			Bullet bullet = new Bullet(posX, posY, app);
+			bullets.add(bullet);
+			shootColdDown = 15;
+		}
+	}
+	
+	public void shoot() {
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).drawBullet();
+			bullets.get(i).move();
+		}
+	}
+	
+	public void eliminateBullet(int max) {
+		for (int i = 0; i < bullets.size(); i++) {
+			if(bullets.get(i).getPosX()>max) {
+				bullets.remove(i);
+			}
+		}
+	}
+	
+	//Getters and Setters
+	
+	public int getShipSize() {
+		return shipSize;
+	}
+
+	public void setShipSize(int shipSize) {
+		this.shipSize = shipSize;
+	}
+
+	public void shield() {
+		
+		if(shieldColdDown == 0) {
+			shieldLoose = true;
+			shieldColdDown = 600;
+		}
 	}
 	
 	public boolean isVulnerable() {
@@ -65,37 +171,6 @@ public class SpaceShip {
 		this.dir = dir;
 	}
 
-	public void drawShip() {
-		//System.out.println(shieldLoose +"***"+ shieldTime+"****"+shieldColdDown);
-		app.fill(255);
-		app.circle(posX, posY, shipSize);
-		//other method?
-		if(dashColdDown>0) {
-			dashColdDown--;
-		}
-		//shield????
-		if(shieldColdDown>0) {
-			shieldColdDown--;
-		}
-		if(shieldLoose && shieldTime>0) {
-			shieldTime--;
-			vulnerable = false;
-			app.fill(120,120,200);
-		}else{
-			app.fill(255);
-			shieldLoose = false;
-		}	
-		if(!shieldLoose) {
-			shieldTime=40;
-			vulnerable=true;
-		}
-		//end shield?
-		//shooting coldD?
-		if(shootColdDown>0) {
-			shootColdDown--;
-		}
-	}
-	
 	public ArrayList<Bullet> getBullets() {
 		return bullets;
 	}
@@ -103,74 +178,6 @@ public class SpaceShip {
 	public void setBullets(ArrayList<Bullet> bullets) {
 		this.bullets = bullets;
 	}
-
-	public void moveShip(int max, boolean dir) {
-		
-		if(dir && posY<max-shipSize/2 ) {
-			posY+=speed;
-		}else if(!dir && posY>shipSize/2){
-			posY-=speed;
-		}
-	}
-	
-	public void shipDash(int max) {
-		if(dashColdDown==0) {
-			if(!dir && posY>125) {
-				posY-=100;
-				dashColdDown = 120;
-			}else if(!dir && posY<125) {
-				posY = 26;
-				dashColdDown = 120;
-			}else if(dir && posY<max-125) {
-				posY += 100;
-				dashColdDown = 120;
-			}else if(dir && posY>max-125) {
-				posY = max-25;
-				dashColdDown = 120;
-			}
-		}
-	}
-	
-	public void generateBullet() {
-		if(shootColdDown==0) {
-			Bullet bullet = new Bullet(posX, posY, app);
-			bullets.add(bullet);
-			shootColdDown = 15;
-		}
-	}
-	
-	public void shoot() {
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).drawBullet();
-			bullets.get(i).move();
-		}
-	}
-	
-	public void eliminateBullet(int max) {
-		for (int i = 0; i < bullets.size(); i++) {
-			if(bullets.get(i).getPosX()>max) {
-				bullets.remove(i);
-			}
-		}
-	}
-	
-	public int getShipSize() {
-		return shipSize;
-	}
-
-	public void setShipSize(int shipSize) {
-		this.shipSize = shipSize;
-	}
-
-	public void shield() {
-		
-		if(shieldColdDown == 0) {
-			shieldLoose = true;
-			shieldColdDown = 600;
-		}
-	}
-	
-
 	
 }
 

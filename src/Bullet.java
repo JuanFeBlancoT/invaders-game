@@ -3,14 +3,6 @@ import processing.core.PApplet;
 public class Bullet {
 	
 	private int posX, posY, bulletSize, speed, damage;
-	public int getDamage() {
-		return damage;
-	}
-
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
-
 	private boolean visible;
 	private PApplet app;
 	
@@ -29,6 +21,8 @@ public class Bullet {
 		}
 		
 	}
+	
+	//Getters and Setters
 	
 	public int getPosY() {
 		return posY;
@@ -64,5 +58,13 @@ public class Bullet {
 
 	public void setPosX(int posX) {
 		this.posX = posX;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 }

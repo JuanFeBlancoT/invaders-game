@@ -3,12 +3,13 @@ import processing.core.PApplet;
 
 public class PlayScreen {
 	
-	SpaceShip player;
-	private int enemiesTimeGen;
-	
-	private ArrayList<Enemy>enemies;
-	
+	//Attributes
 	private int width;
+	private int enemiesTimeGen;
+	//relations
+	private ArrayList<Enemy>enemies;
+	private SpaceShip player;
+	
 	
 	public PlayScreen(PApplet app, int width, int height) {
 		player = new SpaceShip(app);
@@ -20,31 +21,27 @@ public class PlayScreen {
 	public void screenEvents(PApplet app) {
 		
 		player.drawShip();
-		//player.moveShip(0, height);
 		player.shoot();
 		enemiesTimeGen++;
 		player.eliminateBullet(width);
-		/*if(frameCount == 35) {
-			player.generateBullet();
-			frameCount = 0;				
-		}*/
 		
+		//enemies generation
 		if(enemiesTimeGen==110) {
 			generateEnemies(app);
 			enemiesTimeGen = 0;
 		}
-		//other method ?
+		//draw and move enemies
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).drawEnemy(app);
 			enemies.get(i).move();
 		}
+		
 		eliminateEnemies();
 		handleImpacts();
 	}
 	
 	
 	public void handleImpacts() {
-		
 		
 		if(enemies.size()>0) {
 			
@@ -59,7 +56,7 @@ public class PlayScreen {
 					enemies.get(j).setVisible(false);
 				}
 			
-				//enemy traspases the frontier
+				//enemy trespasses the frontier
 				if( enemies.get(j).isVisible() && enemies.get(j).getPosX()<-enemies.get(j).getEnemySize()) {
 					player.setLifes(player.getLifes()-enemies.get(j).getDamage());
 					enemies.get(j).setVisible(false);
@@ -94,6 +91,16 @@ public class PlayScreen {
 		for (int i = 0; i < enemies.size() && enemies.get(i).isVisible() == false; i++) {
 			enemies.remove(i);
 		}
+	}
+	
+	//Getters and Setters
+	
+	public SpaceShip getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(SpaceShip player) {
+		this.player = player;
 	}
 	
 }

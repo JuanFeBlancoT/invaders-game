@@ -5,6 +5,18 @@ public abstract class Enemy {
 	protected int posX, posY, enemySize, health, speed, points, damage;
 	protected boolean visible;
 	
+	
+	public Enemy(PApplet app, int posX, int posY) {
+		this.posX = posX;
+		this.posY = posY;
+	}
+	
+	public abstract void drawEnemy(PApplet app);
+	
+	public abstract void move();
+	
+	//Getters and setters
+	
 	public int getDamage() {
 		return damage;
 	}
@@ -69,14 +81,4 @@ public abstract class Enemy {
 		this.speed = speed;
 	}
 
-	public Enemy(PApplet app, int posX, int posY) {
-		//posX = posY = ((int) Math.random()*50)+1225;
-		//posY = ((int) Math.random()*750)+25;
-		this.posX = posX;
-		this.posY = posY;
-	}
-	
-	public abstract void drawEnemy(PApplet app);
-	
-	public abstract void move();
 }
