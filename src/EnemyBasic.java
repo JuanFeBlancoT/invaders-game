@@ -2,10 +2,10 @@ import processing.core.PApplet;
 
 public class EnemyBasic extends Enemy{
 	
-	public EnemyBasic(PApplet app) {
-		super(app);
+	public EnemyBasic(PApplet app, int posX, int posY) {
+		super(app, posX, posY);
 		points = 10;
-		health = 3;
+		health = 1;
 		enemySize = 60;
 		speed = 3;
 		damage = 1;

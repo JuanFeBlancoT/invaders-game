@@ -69,9 +69,11 @@ public abstract class Enemy {
 		this.speed = speed;
 	}
 
-	public Enemy(PApplet app) {
-		posX = posY = ((int) Math.random()*50)+1225;
-		posY = ((int) Math.random()*750)+25;
+	public Enemy(PApplet app, int posX, int posY) {
+		//posX = posY = ((int) Math.random()*50)+1225;
+		//posY = ((int) Math.random()*750)+25;
+		this.posX = posX;
+		this.posY = posY;
 	}
 	
 	public abstract void drawEnemy(PApplet app);

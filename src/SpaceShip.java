@@ -90,9 +90,9 @@ public class SpaceShip {
 	public void moveShip(int min, int max) {
 		
 		if(dir && posY<max-shipSize/2 ) {
-			posY+=4;
+			posY+=5;
 		}else if(!dir && posY>shipSize/2){
-			posY-=4;
+			posY-=5;
 		}
 	}
 	

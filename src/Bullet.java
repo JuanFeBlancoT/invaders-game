@@ -2,7 +2,15 @@ import processing.core.PApplet;
 
 public class Bullet {
 	
-	private int posX, posY, bulletSize, speed;
+	private int posX, posY, bulletSize, speed, damage;
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
 	private boolean visible;
 	private PApplet app;
 	
