@@ -98,7 +98,7 @@ public class PlayScreen {
 							(Math.pow((player.getBullets().get(i).getPosY()-enemies.get(j).getPosY()), 2)))<
 							enemies.get(j).getEnemySize()/2) {
 						
-						enemies.get(j).setHealth(enemies.get(j).getHealth()-1);
+						enemies.get(j).setHealth(enemies.get(j).getHealth()-(player.getBullets().get(i).getDamage()));
 						player.getBullets().get(i).setVisible(false);
 						if(enemies.get(j).getHealth()==0) {
 							points+=enemies.get(j).getPoints();
@@ -133,6 +133,20 @@ public class PlayScreen {
 		for (int i = 0; i < enemies.size() && enemies.get(i).isVisible() == false; i++) {
 			enemies.remove(i);
 		}
+	}
+	
+	public void lateralShockWave(PApplet app) {
+		if(player.lateralShockWave(app)) {
+			for (int i = 0; i < enemies.size(); i++) {
+				if(enemies.get(i).getPosX()<100) {
+					enemies.get(i).setHealth(enemies.get(i).getHealth()-2);
+					if(enemies.get(i).getHealth()==0) {
+						points+=enemies.get(i).getPoints();
+					}
+				}
+			}
+		}
+			
 	}
 	
 	//Getters and Setters

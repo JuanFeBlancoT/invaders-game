@@ -9,7 +9,7 @@ public class Main extends PApplet {
 	public int width = 1600;
 	public int height = 800;
 	private int screen;
-	private boolean up, down, dash, shield, shoot;
+	private boolean up, down, dash, shield, shoot, opShoot, shockWave;
 	//relations
 	private PlayScreen playScreen;
 	private MenuScreen menuScreen;
@@ -28,6 +28,8 @@ public class Main extends PApplet {
 		dash = false;
 		shield = false;
 		shoot = false;
+		opShoot = false;
+		shockWave = false;
 		//relations
 		playScreen = new PlayScreen(this, width, height);
 		menuScreen = new MenuScreen(this, width, height);
@@ -71,6 +73,12 @@ public class Main extends PApplet {
 			case ' ':
 				shoot = true;
 				break;
+			case 'o':
+				opShoot = true;
+				break;
+			case 'p':
+				shockWave = true;
+				break;
 		}
 			
 	}
@@ -91,6 +99,12 @@ public class Main extends PApplet {
 			break;
 		case ' ':
 			shoot = false;
+			break;
+		case 'o':
+			opShoot = false;
+			break;
+		case 'p':
+			shockWave = false;
 			break;
 		}
 	}
@@ -115,6 +129,12 @@ public class Main extends PApplet {
 		if(shoot) {
 			playScreen.getPlayer().generateBullet();
 			shoot = false;
+		}
+		if(opShoot) {
+			playScreen.getPlayer().generateOpBullet();
+		}
+		if(shockWave) {
+			playScreen.lateralShockWave(this);
 		}
 	}
 	
@@ -141,8 +161,9 @@ public class Main extends PApplet {
 		dash = false;
 		shield = false;
 		shoot = false;
+		opShoot = false;
+		shockWave = false;
 		//relations
 		playScreen = new PlayScreen(this, width, height);
-		menuScreen = new MenuScreen(this, width, height);
 	}
 } 

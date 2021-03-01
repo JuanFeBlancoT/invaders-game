@@ -6,7 +6,8 @@ public class SpaceShip {
 	
 	//Attributes
 	private int posX, posY, shipSize, lifes, dashColdDown, shieldColdDown, shieldTime, speed, shootColdDown;
-	private boolean dir, shieldLoose, vulnerable;
+	private int opBulletColdDown, shockColdDown;
+	private boolean dir, shieldLoose, vulnerable, shockWave;
 	//relations
 	private PApplet app;
 	private ArrayList<Bullet> bullets;
@@ -21,17 +22,17 @@ public class SpaceShip {
 		shieldColdDown = 0;
 		shieldTime = 40;
 		speed = 6;
-		shootColdDown =0;
+		shootColdDown = 0;
+		opBulletColdDown = 0;
 		
 		shieldLoose = false;
 		vulnerable = true;
+		shockWave = false;
 		
 		this.app = app;
 		
 		bullets = new ArrayList<>();
 	}
-	
-	
 
 	public void drawShip() {
 		app.fill(255);
@@ -60,6 +61,14 @@ public class SpaceShip {
 		//shooting coldD?
 		if(shootColdDown>0) {
 			shootColdDown--;
+		}
+		
+		if(opBulletColdDown>0) {
+			opBulletColdDown--;
+		}
+		
+		if(shockColdDown > 0) {
+			shockColdDown--;
 		}
 	}//end drawShip
 	
@@ -92,10 +101,29 @@ public class SpaceShip {
 	
 	public void generateBullet() {
 		if(shootColdDown==0) {
-			Bullet bullet = new Bullet(posX, posY, app);
+			Bullet bullet = new Bullet(posX, posY, 1, 7, app);
 			bullets.add(bullet);
 			shootColdDown = 15;
 		}
+	}
+	
+	public void generateOpBullet(){
+		if(opBulletColdDown==0) {
+			Bullet bullet = new Bullet(posX, posY, 5, 7, app);
+			bullets.add(bullet);
+			opBulletColdDown = 900;
+		}
+	}
+	
+	public boolean lateralShockWave(PApplet app) {
+		if(shockColdDown == 0) {
+			shockWave = true;
+			app.rect(0, 0, 100, 800);
+			shockColdDown = 960;
+		}else {
+			shockWave = false;
+		}
+		return shockWave;
 	}
 	
 	public void shoot() {
@@ -113,6 +141,13 @@ public class SpaceShip {
 		}
 	}
 	
+	public void shield() {
+		
+		if(shieldColdDown == 0) {
+			shieldLoose = true;
+			shieldColdDown = 600;
+		}
+	}
 	//Getters and Setters
 	
 	public int getShipSize() {
@@ -121,14 +156,6 @@ public class SpaceShip {
 
 	public void setShipSize(int shipSize) {
 		this.shipSize = shipSize;
-	}
-
-	public void shield() {
-		
-		if(shieldColdDown == 0) {
-			shieldLoose = true;
-			shieldColdDown = 600;
-		}
 	}
 	
 	public boolean isVulnerable() {
@@ -169,6 +196,14 @@ public class SpaceShip {
 
 	public void setDir(boolean dir) {
 		this.dir = dir;
+	}
+	
+	public boolean isShockWave() {
+		return shockWave;
+	}
+
+	public void setShockWave(boolean shockWave) {
+		this.shockWave = shockWave;
 	}
 
 	public ArrayList<Bullet> getBullets() {

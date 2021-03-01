@@ -6,13 +6,14 @@ public class Bullet {
 	private boolean visible;
 	private PApplet app;
 	
-	public Bullet(int posX, int posY, PApplet app) {
+	public Bullet(int posX, int posY, int damage, int speed, PApplet app) {
 		bulletSize = 20;
-		speed = 7;
+		this.speed = speed;
 		this.posX = posX;
 		this.posY = posY;
 		this.app= app;
 		visible = true;
+		this.damage = damage;
 	}
 	
 	public void drawBullet() {
