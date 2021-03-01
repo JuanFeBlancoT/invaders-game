@@ -17,7 +17,7 @@ public class SpaceShip {
 		posX = 50;
 		posY = 400;
 		shipSize = 50;
-		lifes = 5;
+		lifes = 10;
 		dashColdDown = 0;
 		shieldColdDown = 0;
 		shieldTime = 40;
@@ -36,7 +36,9 @@ public class SpaceShip {
 
 	public void drawShip() {
 		app.fill(255);
+		app.noStroke();
 		app.circle(posX, posY, shipSize);
+		app.rect(posX, posY, 700, 1);
 		//other method?
 		if(dashColdDown>0) {
 			dashColdDown--;
@@ -109,7 +111,7 @@ public class SpaceShip {
 	
 	public void generateOpBullet(){
 		if(opBulletColdDown==0) {
-			Bullet bullet = new Bullet(posX, posY, 5, 7, app);
+			Bullet bullet = new Bullet(posX, posY, 5, 11, app);
 			bullets.add(bullet);
 			opBulletColdDown = 900;
 		}

@@ -10,7 +10,7 @@ public class EnemyShifter extends Enemy{
 		points = 20;
 		health = 2;
 		enemySize = 60;
-		speed = 2;
+		speed = 1;
 		damage = 1;
 		visible = true;
 		dir = true;
@@ -19,7 +19,7 @@ public class EnemyShifter extends Enemy{
 	 
 	public void drawEnemy(PApplet app) {
 		if(visible && health>0) {
-			app.fill(100,80,220);
+			app.fill(100,80,160);
 			app.circle(posX, posY, enemySize);
 		}
 		//should this be here ?

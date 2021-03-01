@@ -77,11 +77,13 @@ public class PlayScreen {
 			for (int j = 0; j < enemies.size() && enemies.get(j)!=null; j++) {
 					
 				//enemy colliding with 
-				if( player.isVulnerable() && enemies.get(j).isVisible()==true && 
+				if(enemies.get(j).isVisible()==true && 
 						Math.sqrt((Math.pow((player.getPosX()-enemies.get(j).getPosX()), 2))+
 						(Math.pow((player.getPosY()-enemies.get(j).getPosY()), 2)))<player.getShipSize()) {
 					
-					player.setLifes(player.getLifes()-enemies.get(j).getDamage());
+					if(!player.isVulnerable()) {
+						player.setLifes(player.getLifes()-enemies.get(j).getDamage());
+					}
 					enemies.get(j).setVisible(false);
 				}
 			
@@ -117,14 +119,18 @@ public class PlayScreen {
 		int posY = (int) (Math.random()*730)+30;
 		
 		Enemy enemieX;
-		int randomFactor = (int) (Math.random()*5);
+		int randomFactor = (int) (Math.random()*8);
 		
 		if(randomFactor==0 || randomFactor ==1) {
 			enemieX = new EnemyBasic(app, posX, posY);
 		}else if(randomFactor == 2 || randomFactor == 3){
 			enemieX = new EnemyBasicBuff(app, posX, posY);
-		}else {
+		}else if(randomFactor == 4 || randomFactor == 5){
 			enemieX = new EnemyShifter(app, posX, posY, height);
+		}else if(randomFactor == 6 ){
+			enemieX = new EnemyFlash(app, posX, posY);
+		}else {
+			enemieX = new EnemyTank(app, posX, posY,height);
 		}
 		enemies.add(enemieX);
 	}
