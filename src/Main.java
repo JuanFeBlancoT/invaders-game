@@ -13,6 +13,7 @@ public class Main extends PApplet {
 	//relations
 	private PlayScreen playScreen;
 	private MenuScreen menuScreen;
+	private EndScreen endScreen;
 	
 	public void settings() {
 		size(width,height);
@@ -30,16 +31,26 @@ public class Main extends PApplet {
 		//relations
 		playScreen = new PlayScreen(this, width, height);
 		menuScreen = new MenuScreen(this, width, height);
+		endScreen = new EndScreen(this, width, height);
+		
 	}
 	
 	public void draw() {
 		background(40);
 		if(screen==1) {
 			menuScreen.loadScreen(this);
+		}else if(screen == 2) {
+			
 		}else if(screen==3) {
-			playScreen.screenEvents(this);
-			keyEvents();
-		}//end screen 1
+			if(playScreen.getPlayer().getLifes()>0) {
+				playScreen.screenEvents(this);
+				keyEvents();
+			}else {
+				screen = 4;
+			}
+		}else {
+			endScreen.loadScreen(this);
+		}
 	}
 	
 	public void keyPressed() {
@@ -115,5 +126,23 @@ public class Main extends PApplet {
 		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+40 && mouseY<(height/2)+100) {
 			screen = 3;
 		}
+		
+		if(screen==4 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+60 && mouseY<(height/2)+120) {
+			resetPlayScreen();
+			screen = 3;
+			System.out.println("RESET");
+		}
+	
+	}
+	
+	public void resetPlayScreen() {
+		up = false;
+		down = false;
+		dash = false;
+		shield = false;
+		shoot = false;
+		//relations
+		playScreen = new PlayScreen(this, width, height);
+		menuScreen = new MenuScreen(this, width, height);
 	}
 } 

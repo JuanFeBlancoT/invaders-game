@@ -16,7 +16,7 @@ public class SpaceShip {
 		posX = 50;
 		posY = 400;
 		shipSize = 50;
-		lifes = 20;
+		lifes = 5;
 		dashColdDown = 0;
 		shieldColdDown = 0;
 		shieldTime = 40;
@@ -107,7 +107,7 @@ public class SpaceShip {
 	
 	public void eliminateBullet(int max) {
 		for (int i = 0; i < bullets.size(); i++) {
-			if(bullets.get(i).getPosX()>max) {
+			if(bullets.get(i).getPosX()>max || bullets.get(i).isVisible()==false) {
 				bullets.remove(i);
 			}
 		}

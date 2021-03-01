@@ -4,7 +4,7 @@ import processing.core.PApplet;
 public class PlayScreen {
 	
 	//Attributes
-	private int width;
+	private int width, height;
 	private int enemiesTimeGen, playTime, minutes, seconds, points;
 	//relations
 	private ArrayList<Enemy>enemies;
@@ -14,6 +14,7 @@ public class PlayScreen {
 	public PlayScreen(PApplet app, int width, int height) {
 		player = new SpaceShip(app);
 		this.width = width;
+		this.height = height;
 		enemies = new ArrayList<>();
 		enemiesTimeGen = 0;
 		playTime = 0;
@@ -23,29 +24,30 @@ public class PlayScreen {
 	}
 	
 	public void screenEvents(PApplet app) {
-		player.drawShip();
-		player.shoot();
-		enemiesTimeGen++;
-		player.eliminateBullet(width);
+					
+			player.drawShip();
+			player.shoot();
+			enemiesTimeGen++;
+			player.eliminateBullet(width);
+			//enemies generation
+			if(enemiesTimeGen==110) {
+				generateEnemies(app);
+				enemiesTimeGen = 0;
+			}
+			//draw and move enemies
+			for (int i = 0; i < enemies.size(); i++) {
+				enemies.get(i).drawEnemy(app);
+				enemies.get(i).move();
+			}
+			
+			eliminateEnemies();
+			handleImpacts();
+			
+			timer(app);
+			//test
+			app.textSize(30);
+			app.text("Points: "+points, 1400, 30);
 		
-		//enemies generation
-		if(enemiesTimeGen==110) {
-			generateEnemies(app);
-			enemiesTimeGen = 0;
-		}
-		//draw and move enemies
-		for (int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).drawEnemy(app);
-			enemies.get(i).move();
-		}
-		
-		eliminateEnemies();
-		handleImpacts();
-		
-		timer(app);
-		//test
-		app.textSize(30);
-		app.text("Points: "+points, 1400, 30);
 	}
 	
 	
@@ -115,13 +117,15 @@ public class PlayScreen {
 		int posY = (int) (Math.random()*730)+30;
 		
 		Enemy enemieX;
-		int randomFactor = (int) (Math.random()*2);
+		int randomFactor = (int) (Math.random()*5);
 		
-		if(randomFactor==1 || randomFactor ==2) {
+		if(randomFactor==0 || randomFactor ==1) {
 			enemieX = new EnemyBasic(app, posX, posY);
-		}else {
+		}else if(randomFactor == 2 || randomFactor == 3){
 			enemieX = new EnemyBasicBuff(app, posX, posY);
-		}		
+		}else {
+			enemieX = new EnemyShifter(app, posX, posY, height);
+		}
 		enemies.add(enemieX);
 	}
 	
