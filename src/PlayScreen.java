@@ -10,6 +10,7 @@ public class PlayScreen {
 	private ArrayList<Enemy>enemies;
 	private SpaceShip player;
 	
+	//private Enemy a;
 	
 	public PlayScreen(PApplet app, int width, int height) {
 		player = new SpaceShip(app);
@@ -21,14 +22,24 @@ public class PlayScreen {
 		seconds = 0;
 		minutes = 0;
 		points = 0;
+		
+		//a = new EnemyShooter(app, 1000, 500);
 	}
 	
 	public void screenEvents(PApplet app) {
-					
-			player.drawShip();
+			
+		for (int i = 0; i < player.getLifes(); i++) {
+			app.fill(80,180,60);
+			app.circle((i*20)+15, 20, 10);
+		}
+			player.drawShip(app);
 			player.shoot();
 			enemiesTimeGen++;
 			player.eliminateBullet(width);
+			
+			//a.drawEnemy(app);
+			//a.move();
+			
 			//enemies generation
 			if(enemiesTimeGen==110) {
 				generateEnemies(app);
@@ -48,6 +59,7 @@ public class PlayScreen {
 			app.textSize(30);
 			app.text("Points: "+points, 1400, 30);
 		
+			
 	}
 	
 	
@@ -74,43 +86,58 @@ public class PlayScreen {
 		
 		if(enemies.size()>0) {
 			
-			for (int j = 0; j < enemies.size() && enemies.get(j)!=null; j++) {
-					
-				//enemy colliding with 
-				if(enemies.get(j).isVisible()==true && 
-						Math.sqrt((Math.pow((player.getPosX()-enemies.get(j).getPosX()), 2))+
-						(Math.pow((player.getPosY()-enemies.get(j).getPosY()), 2)))<player.getShipSize()) {
-					
-					if(!player.isVulnerable()) {
-						player.setLifes(player.getLifes()-enemies.get(j).getDamage());
-					}
-					enemies.get(j).setVisible(false);
-				}
-			
-				//enemy trespasses the frontier
-				if( enemies.get(j).isVisible() && enemies.get(j).getPosX()<-enemies.get(j).getEnemySize()) {
+		for (int j = 0; j < enemies.size() && enemies.get(j)!=null; j++) {
+				
+			//enemy colliding with 
+			if(enemies.get(j).isVisible()==true && 
+					Math.sqrt((Math.pow((player.getPosX()-enemies.get(j).getPosX()), 2))+
+					(Math.pow((player.getPosY()-enemies.get(j).getPosY()), 2)))<player.getShipSize()) {
+				
+				if(player.isVulnerable()) {
 					player.setLifes(player.getLifes()-enemies.get(j).getDamage());
-					enemies.get(j).setVisible(false);
 				}
-				
-				//enemy gets shot
-				for (int i = 0; i < player.getBullets().size(); i++) {
-					if(player.getBullets().get(i).isVisible()==true && enemies.get(j).isVisible()==true && 
-							Math.sqrt((Math.pow((player.getBullets().get(i).getPosX()-enemies.get(j).getPosX()), 2))+
-							(Math.pow((player.getBullets().get(i).getPosY()-enemies.get(j).getPosY()), 2)))<
-							enemies.get(j).getEnemySize()/2) {
-						
-						enemies.get(j).setHealth(enemies.get(j).getHealth()-(player.getBullets().get(i).getDamage()));
-						player.getBullets().get(i).setVisible(false);
-						if(enemies.get(j).getHealth()==0) {
-							points+=enemies.get(j).getPoints();
-						}
-						
-					}
-				}
-			}	
-				
+				enemies.get(j).setVisible(false);
+			}
+		
+			//enemy trespasses the frontier
+			if( enemies.get(j).isVisible() && enemies.get(j).getPosX()<-enemies.get(j).getEnemySize()) {
+				player.setLifes(player.getLifes()-enemies.get(j).getDamage());
+				enemies.get(j).setVisible(false);
+			}
 			
+			//enemy gets shot
+			for (int i = 0; i < player.getBullets().size(); i++) {
+				if(player.getBullets().get(i).isVisible()==true && enemies.get(j).isVisible()==true && 
+						Math.sqrt((Math.pow((player.getBullets().get(i).getPosX()-enemies.get(j).getPosX()), 2))+
+						(Math.pow((player.getBullets().get(i).getPosY()-enemies.get(j).getPosY()), 2)))<
+						enemies.get(j).getEnemySize()/2) {
+					
+					enemies.get(j).setHealth(enemies.get(j).getHealth()-(player.getBullets().get(i).getDamage()));
+					player.getBullets().get(i).setVisible(false);
+					if(enemies.get(j).getHealth()==0) {
+						points+=enemies.get(j).getPoints();
+					}
+					
+				}
+			}
+			
+			//player shooted
+			if(enemies.get(j) instanceof EnemyShooter) {
+				for (int k = 0; k < ((EnemyShooter)enemies.get(j)).getEnemyBullets().size() ; k++) {
+										
+					if(((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).isVisible()==true &&
+							Math.sqrt((Math.pow((player.getPosX()-((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).getPosX()), 2)))+
+							Math.sqrt((Math.pow((player.getPosY()-((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).getPosY()), 2)))<
+							player.getShipSize()/2) {
+						
+						if(player.isVulnerable()) {
+							player.setLifes(player.getLifes()-enemies.get(j).getDamage());
+						}
+						((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).setVisible(false);
+						}
+					}
+				}//end get shot
+			}	
 		}
 	}//end handleImpacts
 	
@@ -119,7 +146,7 @@ public class PlayScreen {
 		int posY = (int) (Math.random()*730)+30;
 		
 		Enemy enemieX;
-		int randomFactor = (int) (Math.random()*8);
+		int randomFactor = (int) (Math.random()*10);
 		
 		if(randomFactor==0 || randomFactor ==1) {
 			enemieX = new EnemyBasic(app, posX, posY);
@@ -129,8 +156,10 @@ public class PlayScreen {
 			enemieX = new EnemyShifter(app, posX, posY, height);
 		}else if(randomFactor == 6 ){
 			enemieX = new EnemyFlash(app, posX, posY);
-		}else {
+		}else if(randomFactor == 7 || randomFactor == 8 ){
 			enemieX = new EnemyTank(app, posX, posY,height);
+		}else {
+			enemieX = new EnemyShooter(app, posX, posY);
 		}
 		enemies.add(enemieX);
 	}

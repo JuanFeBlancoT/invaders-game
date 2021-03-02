@@ -127,11 +127,11 @@ public class Main extends PApplet {
 			shield = false;
 		}
 		if(shoot) {
-			playScreen.getPlayer().generateBullet();
+			playScreen.getPlayer().generateBullet(this);
 			shoot = false;
 		}
 		if(opShoot) {
-			playScreen.getPlayer().generateOpBullet();
+			playScreen.getPlayer().generateOpBullet(this);
 		}
 		if(shockWave) {
 			playScreen.lateralShockWave(this);

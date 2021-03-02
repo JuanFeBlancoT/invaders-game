@@ -6,11 +6,11 @@ public class EnemyTank extends Enemy{
 	
 	public EnemyTank(PApplet app, int posX, int posY, int max) {
 		super(app, posX, posY);
-		points = 20;
-		health = 8;
+		points = 40;
+		health = 9;
 		enemySize = 80;
 		speed = 1;
-		damage = 1;
+		damage = 4;
 		posXNow = posX;
 		visible = true;
 		dirY = false;

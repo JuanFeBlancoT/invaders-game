@@ -4,7 +4,7 @@ public class EnemyFlash extends Enemy{
 
 	public EnemyFlash(PApplet app, int posX, int posY) {
 		super(app, posX, posY);
-		points = 10;
+		points = 17;
 		health = 1;
 		enemySize = 40;
 		speed = 8;

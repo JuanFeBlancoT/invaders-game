@@ -9,7 +9,6 @@ public class SpaceShip {
 	private int opBulletColdDown, shockColdDown;
 	private boolean dir, shieldLoose, vulnerable, shockWave;
 	//relations
-	private PApplet app;
 	private ArrayList<Bullet> bullets;
 	
 	public SpaceShip(PApplet app) {
@@ -29,15 +28,15 @@ public class SpaceShip {
 		vulnerable = true;
 		shockWave = false;
 		
-		this.app = app;
 		
 		bullets = new ArrayList<>();
 	}
 
-	public void drawShip() {
+	public void drawShip(PApplet app) {
 		app.fill(255);
 		app.noStroke();
 		app.circle(posX, posY, shipSize);
+		app.fill(255,80);
 		app.rect(posX, posY, 700, 1);
 		//other method?
 		if(dashColdDown>0) {
@@ -101,17 +100,17 @@ public class SpaceShip {
 		}
 	}//end shipDash
 	
-	public void generateBullet() {
+	public void generateBullet(PApplet app) {
 		if(shootColdDown==0) {
-			Bullet bullet = new Bullet(posX, posY, 1, 7, app);
+			Bullet bullet = new Bullet(posX, posY, 1, 10, app);
 			bullets.add(bullet);
-			shootColdDown = 15;
+			shootColdDown = 20;
 		}
 	}
 	
-	public void generateOpBullet(){
+	public void generateOpBullet(PApplet app){
 		if(opBulletColdDown==0) {
-			Bullet bullet = new Bullet(posX, posY, 5, 11, app);
+			Bullet bullet = new Bullet(posX, posY, 5, 17, app);
 			bullets.add(bullet);
 			opBulletColdDown = 900;
 		}

@@ -19,8 +19,15 @@ public class Bullet {
 	public void drawBullet() {
 		if(visible) {
 			app.circle(posX, posY, bulletSize);
-		}
-		
+		}	
+	}
+	
+	public void move() {
+		posX+=speed;
+	}
+	
+	public void moveBackwards() {
+		posX-=speed;
 	}
 	
 	//Getters and Setters
@@ -47,10 +54,6 @@ public class Bullet {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
-	}
-
-	public void move() {
-		posX+=speed;
 	}
 
 	public int getPosX() {

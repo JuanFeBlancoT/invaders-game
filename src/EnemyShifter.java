@@ -11,7 +11,7 @@ public class EnemyShifter extends Enemy{
 		health = 2;
 		enemySize = 60;
 		speed = 1;
-		damage = 1;
+		damage = 2;
 		visible = true;
 		dir = true;
 		this.max = max;
