@@ -7,7 +7,7 @@ public class Main extends PApplet {
 	
 	//Attributes
 	public int width = 1600;
-	public int height = 800;
+	public int height = 900;
 	private int screen;
 	private boolean up, down, dash, shield, shoot, opShoot, shockWave;
 	//relations
@@ -111,30 +111,32 @@ public class Main extends PApplet {
 	
 	public void keyEvents() {
 		
-		if(up) {
-			playScreen.getPlayer().moveShip(height, false);
-			playScreen.getPlayer().setDir(false);
-		}
-		if(down) {
-			playScreen.getPlayer().moveShip(height, true);
-			playScreen.getPlayer().setDir(true);
-		}
-		if(dash) {
-			playScreen.getPlayer().shipDash(height);
-		}
-		if(shield) {
-			playScreen.getPlayer().shield();
-			shield = false;
-		}
-		if(shoot) {
-			playScreen.getPlayer().generateBullet(this);
-			shoot = false;
-		}
-		if(opShoot) {
-			playScreen.getPlayer().generateOpBullet(this);
-		}
-		if(shockWave) {
-			playScreen.lateralShockWave(this);
+		if(screen == 3) {
+			if(up) {
+				playScreen.getPlayer().moveShip(height, false);
+				playScreen.getPlayer().setDir(false);
+			}
+			if(down) {
+				playScreen.getPlayer().moveShip(height, true);
+				playScreen.getPlayer().setDir(true);
+			}
+			if(dash) {
+				playScreen.getPlayer().shipDash(height);
+			}
+			if(shield) {
+				playScreen.getPlayer().shield();
+				shield = false;
+			}
+			if(shoot) {
+				playScreen.getPlayer().generateBullet(this);
+				shoot = false;
+			}
+			if(opShoot) {
+				playScreen.getPlayer().generateOpBullet(this);
+			}
+			if(shockWave) {
+				playScreen.lateralShockWave(this);
+			}
 		}
 	}
 	

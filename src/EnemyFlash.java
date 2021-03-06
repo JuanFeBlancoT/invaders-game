@@ -1,7 +1,9 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class EnemyFlash extends Enemy{
 
+	PImage flash;
 	public EnemyFlash(PApplet app, int posX, int posY) {
 		super(app, posX, posY);
 		points = 17;
@@ -10,12 +12,15 @@ public class EnemyFlash extends Enemy{
 		speed = 8;
 		damage = 2;
 		visible = true;
+		
+		flash = app.loadImage("img/flash.png");
 	}
 	 
 	public void drawEnemy(PApplet app) {
 		if(visible && health>0) {
 			app.fill(220,130,20);
-			app.circle(posX, posY, enemySize);
+			//app.circle(posX, posY, enemySize);
+			app.image(flash,posX-enemySize, posY-enemySize/2,5*enemySize, 3*enemySize);	
 		}
 		//should this be here ?
 		if(health==0) {

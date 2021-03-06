@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class PlayScreen {
 	
@@ -10,7 +11,27 @@ public class PlayScreen {
 	private ArrayList<Enemy>enemies;
 	private SpaceShip player;
 	
-	//private Enemy a;
+	//images
+	//shooter
+	PImage s1;
+	PImage s2;
+	PImage s3;
+	PImage s4;
+	PImage s5;
+	PImage s6;
+	PImage s7;
+	PImage s8;
+	//basic
+	PImage b1;
+	PImage b2;
+	PImage b3;
+	PImage b4;
+	PImage b5;
+	//tank
+	PImage t1;
+	PImage t2;
+	PImage t3;
+	
 	
 	public PlayScreen(PApplet app, int width, int height) {
 		player = new SpaceShip(app);
@@ -23,9 +44,33 @@ public class PlayScreen {
 		minutes = 0;
 		points = 0;
 		
-		//a = new EnemyShooter(app, 1000, 500);
+		loadImages(app);
+	
 	}
 	
+	private void loadImages(PApplet app) {
+		//shooter
+		s1 = app.loadImage("img/shooterImg/sh1.png");
+		s2 = app.loadImage("img/shooterImg/sh2.png");
+		s3 = app.loadImage("img/shooterImg/sh3.png");
+		s4 = app.loadImage("img/shooterImg/sh4.png");
+		s5 = app.loadImage("img/shooterImg/sh5.png");
+		s6 = app.loadImage("img/shooterImg/sh6.png");
+		s7 = app.loadImage("img/shooterImg/sh7.png");
+		s8 = app.loadImage("img/shooterImg/sh8.png");
+		//basic
+		b1 = app.loadImage("img/basicImg/ba1.png");
+		b2 = app.loadImage("img/basicImg/ba2.png");
+		b3 = app.loadImage("img/basicImg/ba3.png");
+		b4 = app.loadImage("img/basicImg/ba4.png");
+		b5 = app.loadImage("img/basicImg/ba5.png");
+		//tank
+		t1 = app.loadImage("img/tankImg/t1.png");
+		t2 = app.loadImage("img/tankImg/t2.png");
+		t3 = app.loadImage("img/tankImg/t3.png");
+		
+	}
+
 	public void screenEvents(PApplet app) {
 			
 		for (int i = 0; i < player.getLifes(); i++) {
@@ -36,10 +81,7 @@ public class PlayScreen {
 			player.shoot();
 			enemiesTimeGen++;
 			player.eliminateBullet(width);
-			
-			//a.drawEnemy(app);
-			//a.move();
-			
+
 			//enemies generation
 			if(enemiesTimeGen==110) {
 				generateEnemies(app);
@@ -149,7 +191,7 @@ public class PlayScreen {
 		int randomFactor = (int) (Math.random()*10);
 		
 		if(randomFactor==0 || randomFactor ==1) {
-			enemieX = new EnemyBasic(app, posX, posY);
+			enemieX = new EnemyBasic(app, posX, posY, b1, b2, b3, b4, b5);
 		}else if(randomFactor == 2 || randomFactor == 3){
 			enemieX = new EnemyBasicBuff(app, posX, posY);
 		}else if(randomFactor == 4 || randomFactor == 5){
@@ -157,9 +199,9 @@ public class PlayScreen {
 		}else if(randomFactor == 6 ){
 			enemieX = new EnemyFlash(app, posX, posY);
 		}else if(randomFactor == 7 || randomFactor == 8 ){
-			enemieX = new EnemyTank(app, posX, posY,height);
+			enemieX = new EnemyTank(app, posX, posY,height, t1, t2, t3);
 		}else {
-			enemieX = new EnemyShooter(app, posX, posY);
+			enemieX = new EnemyShooter(app, posX, posY, s1, s2, s3, s4, s5, s6, s7, s8);
 		}
 		enemies.add(enemieX);
 	}
