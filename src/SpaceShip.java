@@ -77,7 +77,7 @@ public class SpaceShip {
 		
 		if(dir && posY<max-shipSize/2 ) {
 			posY+=speed;
-		}else if(!dir && posY>shipSize/2){
+		}else if(!dir && posY>140){
 			posY-=speed;
 		}
 	}
@@ -137,6 +137,7 @@ public class SpaceShip {
 	public void eliminateBullet(int max) {
 		for (int i = 0; i < bullets.size(); i++) {
 			if(bullets.get(i).getPosX()>max || bullets.get(i).isVisible()==false) {
+				
 				bullets.remove(i);
 			}
 		}

@@ -10,12 +10,12 @@ public class EnemyTank extends Enemy{
 	PImage t3;
 	int frameC;
 	
-	public EnemyTank(PApplet app, int posX, int posY, int max, PImage t1, PImage t2, PImage t3) {
-		super(app, posX, posY);
+	public EnemyTank(PApplet app, int posX, int posY,int speed, int max, PImage t1, PImage t2, PImage t3) {
+		super(app, posX, posY,speed);
 		points = 40;
 		health = 9;
-		enemySize = 80;
-		speed = 1;
+		enemySize = 90;
+		speed += 1;
 		damage = 4;
 		posXNow = posX;
 		visible = true;
@@ -34,13 +34,13 @@ public class EnemyTank extends Enemy{
 			
 			frameC++;
 			app.fill(80,160,60);
-			//app.circle(posX, posY, enemySize);
+			app.circle(posX, posY, enemySize);
 			if(frameC>0 && frameC <=10) {
-				app.image(t1,posX-enemySize, posY-enemySize/2,enemySize+80,enemySize+80);	
+				app.image(t1,posX-enemySize, posY-enemySize,enemySize+70,enemySize+70);	
 			}else if(frameC>10 && frameC<=20) {
-				app.image(t2,posX-enemySize, posY-enemySize/2,enemySize+80,enemySize+80);	
+				app.image(t2,posX-enemySize, posY-enemySize,enemySize+70,enemySize+70);	
 			}else if(frameC>20 && frameC<=30) {
-				app.image(t3,posX-enemySize, posY-enemySize/2,enemySize+80,enemySize+80);
+				app.image(t3,posX-enemySize, posY-enemySize,enemySize+70,enemySize+70);
 				if(frameC==30) {
 					frameC = 0;
 				}
@@ -63,7 +63,7 @@ public class EnemyTank extends Enemy{
 		}
 		
 		
-		if((posY>(max-(enemySize/2)) || posY<enemySize/2) && !moveLeft){
+		if((posY>(max-(enemySize/2)) || posY<160) && !moveLeft){
 			dirY = !dirY;
 			posXNow = posX;
 			moveLeft = true;

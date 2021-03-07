@@ -6,9 +6,10 @@ public abstract class Enemy {
 	protected boolean visible;
 	
 	
-	public Enemy(PApplet app, int posX, int posY) {
+	public Enemy(PApplet app, int posX, int posY, int speed) {
 		this.posX = posX;
 		this.posY = posY;
+		this.speed = speed;
 	}
 	
 	public abstract void drawEnemy(PApplet app);

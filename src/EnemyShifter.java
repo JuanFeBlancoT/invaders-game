@@ -5,12 +5,12 @@ public class EnemyShifter extends Enemy{
 	int max;
 	boolean dir;
 	
-	public EnemyShifter(PApplet app, int posX, int posY, int max) {
-		super(app, posX, posY);
+	public EnemyShifter(PApplet app, int posX, int posY,int speed, int max) {
+		super(app, posX, posY, speed);
 		points = 20;
 		health = 2;
 		enemySize = 60;
-		speed = 1;
+		speed +=1;
 		damage = 2;
 		visible = true;
 		dir = true;
@@ -34,7 +34,7 @@ public class EnemyShifter extends Enemy{
 		}else {
 			setPosY(posY-(speed+1));
 		}
-		if(posY>(max-(enemySize/2)) || posY<enemySize/2){
+		if(posY>(max-(enemySize/2)) || posY<130){
 			dir=!dir;
 		}
 		setPosX(posX-speed);

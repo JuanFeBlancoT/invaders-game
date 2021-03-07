@@ -72,18 +72,18 @@ public class PlayScreen {
 	}
 
 	public void screenEvents(PApplet app) {
-			
+			 //app.rect(0, 0, 1600,112);
 		for (int i = 0; i < player.getLifes(); i++) {
 			app.fill(80,180,60);
 			app.circle((i*20)+15, 20, 10);
 		}
+			deleteEnemies();
 			player.drawShip(app);
 			player.shoot();
 			enemiesTimeGen++;
 			player.eliminateBullet(width);
-
 			//enemies generation
-			if(enemiesTimeGen==110) {
+			if(enemiesTimeGen==110 && enemies.size()<14) {
 				generateEnemies(app);
 				enemiesTimeGen = 0;
 			}
@@ -93,14 +93,12 @@ public class PlayScreen {
 				enemies.get(i).move();
 			}
 			
-			eliminateEnemies();
 			handleImpacts();
 			
 			timer(app);
 			//test
 			app.textSize(30);
 			app.text("Points: "+points, 1400, 30);
-		
 			
 	}
 	
@@ -139,12 +137,14 @@ public class PlayScreen {
 					player.setLifes(player.getLifes()-enemies.get(j).getDamage());
 				}
 				enemies.get(j).setVisible(false);
+				//eliminateEnemies(j);
 			}
 		
 			//enemy trespasses the frontier
 			if( enemies.get(j).isVisible() && enemies.get(j).getPosX()<-enemies.get(j).getEnemySize()) {
 				player.setLifes(player.getLifes()-enemies.get(j).getDamage());
 				enemies.get(j).setVisible(false);
+				//eliminateEnemies(j);
 			}
 			
 			//enemy gets shot
@@ -158,6 +158,8 @@ public class PlayScreen {
 					player.getBullets().get(i).setVisible(false);
 					if(enemies.get(j).getHealth()==0) {
 						points+=enemies.get(j).getPoints();
+						enemies.get(j).setVisible(false);
+						//eliminateEnemies(j);
 					}
 					
 				}
@@ -184,31 +186,52 @@ public class PlayScreen {
 	}//end handleImpacts
 	
 	public void generateEnemies(PApplet app) {
-		int posX = (int) (Math.random()*400)+1650;
-		int posY = (int) (Math.random()*730)+30;
+		int posX = (int) (Math.random()*100)+1650;
+		int posY = (int) (Math.random()*700)+150;
 		
 		Enemy enemieX;
-		int randomFactor = (int) (Math.random()*10);
+		int randomFactor=0;
+		
+		if(minutes==0 && seconds>0 && seconds<=20) {
+			randomFactor = (int) (Math.random()*3);
+		}else if(minutes ==0 && seconds>20 && seconds<=40) {
+			randomFactor = (int) (Math.random()*5);
+		}else if(minutes ==0 && seconds>40 && seconds<=60) {
+			randomFactor = (int) (Math.random()*7);
+		}else if(minutes ==1 && seconds>0 && seconds<=20) {
+			randomFactor = (int) (Math.random()*10);
+		}else if(minutes ==1 && seconds>20 && seconds<=45){
+			randomFactor = (int) (Math.random()*10);
+		}else {
+			randomFactor = (int) (Math.random()*11);
+		}		
 		
 		if(randomFactor==0 || randomFactor ==1) {
-			enemieX = new EnemyBasic(app, posX, posY, b1, b2, b3, b4, b5);
+			enemieX = new EnemyBasic(app, posX, posY,minutes+3, b1, b2, b3, b4, b5);
 		}else if(randomFactor == 2 || randomFactor == 3){
-			enemieX = new EnemyBasicBuff(app, posX, posY);
+			enemieX = new EnemyBasicBuff(app, posX, posY,minutes+4);
 		}else if(randomFactor == 4 || randomFactor == 5){
-			enemieX = new EnemyShifter(app, posX, posY, height);
+			enemieX = new EnemyShifter(app, posX, posY,minutes+1, height);
 		}else if(randomFactor == 6 ){
-			enemieX = new EnemyFlash(app, posX, posY);
+			enemieX = new EnemyFlash(app, posX, posY,minutes+10);
 		}else if(randomFactor == 7 || randomFactor == 8 ){
-			enemieX = new EnemyTank(app, posX, posY,height, t1, t2, t3);
+			enemieX = new EnemyTank(app, posX, posY,minutes+1,height, t1, t2, t3);
 		}else {
-			enemieX = new EnemyShooter(app, posX, posY, s1, s2, s3, s4, s5, s6, s7, s8);
+			enemieX = new EnemyShooter(app, posX, posY,minutes+2, s1, s2, s3, s4, s5, s6, s7, s8);
 		}
 		enemies.add(enemieX);
 	}
 	
-	public void eliminateEnemies() {
-		for (int i = 0; i < enemies.size() && enemies.get(i).isVisible() == false; i++) {
+	public void eliminateEnemies(int i) {
 			enemies.remove(i);
+	}
+	
+	public void deleteEnemies() {
+		System.out.println("EA: " + enemies.size()+". AAAAA");
+		for (int i = 0; i < enemies.size(); i++) {
+			if(enemies.get(i).isVisible()==false){
+				enemies.remove(i);
+			}			
 		}
 	}
 	

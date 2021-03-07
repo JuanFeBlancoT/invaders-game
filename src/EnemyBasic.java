@@ -11,12 +11,12 @@ public class EnemyBasic extends Enemy{
 	PImage b5;
 	int frameC;
 	
-	public EnemyBasic(PApplet app, int posX, int posY, PImage b1, PImage b2, PImage b3, PImage b4, PImage b5) {
-		super(app, posX, posY);
+	public EnemyBasic(PApplet app, int posX, int posY,int speed, PImage b1, PImage b2, PImage b3, PImage b4, PImage b5) {
+		super(app, posX, posY, speed);
 		points = 10;
 		health = 1;
 		enemySize = 60;
-		speed = 3;
+		speed+=3;
 		damage = 1;
 		visible = true;
 		
@@ -33,7 +33,7 @@ public class EnemyBasic extends Enemy{
 			app.fill(200,100,100);
 			
 			frameC++;
-			//app.circle(posX, posY, enemySize);
+			app.circle(posX, posY, enemySize);
 			if(frameC>0 && frameC<=8) {
 				app.image(b1,posX-enemySize, posY-enemySize, 2*enemySize, 2*enemySize);	
 			}else if(frameC>8 && frameC<=16) {

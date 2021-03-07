@@ -141,11 +141,11 @@ public class Main extends PApplet {
 	}
 	
 	public void mouseClicked() {
-		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)-80 && mouseY<(height/2)+20) {
+		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+30 && mouseY<(height/2)+90) {
 			screen = 2;
 		}
 		
-		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+40 && mouseY<(height/2)+100) {
+		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+170 && mouseY<(height/2)+230) {
 			screen = 3;
 		}
 		

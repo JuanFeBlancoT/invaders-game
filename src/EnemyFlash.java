@@ -4,12 +4,12 @@ import processing.core.PImage;
 public class EnemyFlash extends Enemy{
 
 	PImage flash;
-	public EnemyFlash(PApplet app, int posX, int posY) {
-		super(app, posX, posY);
+	public EnemyFlash(PApplet app, int posX, int posY,int speed) {
+		super(app, posX, posY,speed);
 		points = 17;
 		health = 1;
 		enemySize = 40;
-		speed = 8;
+		speed += 10;
 		damage = 2;
 		visible = true;
 		

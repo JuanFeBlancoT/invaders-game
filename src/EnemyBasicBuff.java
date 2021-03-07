@@ -4,12 +4,12 @@ import processing.core.PImage;
 public class EnemyBasicBuff extends Enemy{
 
 	PImage hand;
-	public EnemyBasicBuff(PApplet app, int posX, int posY) {
-		super(app, posX, posY);
+	public EnemyBasicBuff(PApplet app, int posX, int posY,int speed) {
+		super(app, posX, posY, speed);
 		points = 15;
 		health = 2;
 		enemySize = 60;
-		speed = 4;
+		speed += 4;
 		damage = 1;
 		visible = true;
 		
