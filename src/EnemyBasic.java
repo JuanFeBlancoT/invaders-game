@@ -33,7 +33,7 @@ public class EnemyBasic extends Enemy{
 			app.fill(200,100,100);
 			
 			frameC++;
-			app.circle(posX, posY, enemySize);
+			//app.circle(posX, posY, enemySize);
 			if(frameC>0 && frameC<=8) {
 				app.image(b1,posX-enemySize, posY-enemySize, 2*enemySize, 2*enemySize);	
 			}else if(frameC>8 && frameC<=16) {

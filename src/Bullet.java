@@ -1,12 +1,14 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Bullet {
 	
 	private int posX, posY, bulletSize, speed, damage;
 	private boolean visible;
 	private PApplet app;
+	PImage b;
 	
-	public Bullet(int posX, int posY, int damage, int speed, PApplet app) {
+	public Bullet(int posX, int posY, int damage, int speed, PApplet app, PImage b) {
 		bulletSize = 20;
 		this.speed = speed;
 		this.posX = posX;
@@ -14,11 +16,13 @@ public class Bullet {
 		this.app= app;
 		visible = true;
 		this.damage = damage;
+		this.b = b;
 	}
 	
 	public void drawBullet() {
 		if(visible) {
-			app.circle(posX, posY, bulletSize);
+			app.image(b, posX-18, posY-18);
+			//app.circle(posX, posY, bulletSize);
 		}	
 	}
 	

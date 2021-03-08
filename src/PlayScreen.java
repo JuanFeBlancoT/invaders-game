@@ -12,9 +12,9 @@ public class PlayScreen {
 	private SpaceShip player;
 	
 	//images
-	PImage bg;
+	PImage bg, bar;
 	//shooter
-	PImage s1,s2,s3,s4,s5,s6,s7,s8;
+	PImage s1,s2,s3,s4,s5,s6,s7,s8, br;
 	//basic
 	PImage b1,b2,b3,b4,b5;
 	//tank
@@ -25,12 +25,13 @@ public class PlayScreen {
 	PImage e1,e2,e3,e4,e5,e6;
 	//doomFist
 	PImage df1,df2,df3,df4;
+	//ship
+	PImage nn, nar,nab, sh, line, livs, ba, bm;
 	
 	public PlayScreen(PApplet app, int width, int height) {
-		player = new SpaceShip(app);
+		
 		this.width = width;
 		this.height = height;
-		enemies = new ArrayList<>();
 		enemiesTimeGen = 0;
 		playTime = 0;
 		seconds = 0;
@@ -38,11 +39,15 @@ public class PlayScreen {
 		points = 0;
 		
 		loadImages(app);
+		
+		player = new SpaceShip(app, nn,nab,nar,sh, line,ba,bm);
+		enemies = new ArrayList<>();
 	
 	}
 	
 	private void loadImages(PApplet app) {
 		bg = app.loadImage("img/interfaces/bgp.png");
+		bar = app.loadImage("img/interfaces/bar.png");
 		//shooter
 		s1 = app.loadImage("img/shooterImg/sh1.png");
 		s2 = app.loadImage("img/shooterImg/sh2.png");
@@ -52,6 +57,7 @@ public class PlayScreen {
 		s6 = app.loadImage("img/shooterImg/sh6.png");
 		s7 = app.loadImage("img/shooterImg/sh7.png");
 		s8 = app.loadImage("img/shooterImg/sh8.png");
+		br = app.loadImage("img/shooterImg/br.png");
 		//basic
 		b1 = app.loadImage("img/basicImg/ba1.png");
 		b2 = app.loadImage("img/basicImg/ba2.png");
@@ -77,15 +83,24 @@ public class PlayScreen {
 		df2 = app.loadImage("img/doomfImg/df2.png");
 		df3 = app.loadImage("img/doomfImg/df3.png");
 		df4 = app.loadImage("img/doomfImg/df4.png");
-		
+		//ship
+		nn = app.loadImage("img/shipImg/nn.png");
+		nar = app.loadImage("img/shipImg/nar.png");
+		nab = app.loadImage("img/shipImg/nab.png");
+		sh = app.loadImage("img/shipImg/shieldS.png");
+		line = app.loadImage("img/shipImg/line.png");
+		livs = app.loadImage("img/shipImg/heatlh.png");
+		bm = app.loadImage("img/shipImg/bm.png");
+		ba = app.loadImage("img/shipImg/ba.png");
 	}
 
 	public void screenEvents(PApplet app) {
 			 //app.rect(0, 0, 1600,112);
 		app.image(bg, 0, 100);
+		app.image(bar, 0, 0);
 		for (int i = 0; i < player.getLifes(); i++) {
 			app.fill(80,180,60);
-			app.circle((i*20)+15, 50, 10);
+			app.image(livs, (i*40)+30, 30, 55,55);
 		}
 			deleteEnemies();
 			player.drawShip(app);
@@ -107,8 +122,29 @@ public class PlayScreen {
 			timer(app);
 			//test
 			app.textSize(30);
-			app.text("Points: "+points, 1350, 60);
+			app.text("Points: "+points, 1350, 70);	
 			
+			app.noStroke();
+			//showCDstatus
+			
+			if(player.getDashColdDown()==0) {
+				app.fill(255,211,266);
+				app.circle(710, 70, 30);
+			}
+			
+			if(player.getOpBulletColdDown()==0) {
+				app.fill(199,70,224);
+				app.circle(760, 70, 30);
+			}
+			
+			if(player.getShieldColdDown()==0) {
+				app.fill(55,208,250);
+				app.circle(810, 70, 30);
+			}
+			if(player.getShockColdDown()==0) {
+				app.fill(247,87,55);
+				app.circle(860, 70, 30);
+			}
 	}
 	
 	
@@ -123,11 +159,11 @@ public class PlayScreen {
 		}
 		app.fill(255);
 		if(minutes<10 && seconds<10) {
-			app.text("0"+minutes+":0"+seconds, 1200, 60);
+			app.text("0"+minutes+":0"+seconds, 1200, 70);
 		}else if(minutes<10 && seconds>10){
-			app.text("0"+minutes+":"+seconds, 1200, 60);
+			app.text("0"+minutes+":"+seconds, 1200, 70);
 		}else {
-			app.text(minutes+":"+seconds, 1200, 30);
+			app.text(minutes+":"+seconds, 1200, 70);
 		}
 	}
 
@@ -159,11 +195,11 @@ public class PlayScreen {
 			for (int i = 0; i < player.getBullets().size(); i++) {
 				if(player.getBullets().get(i).isVisible()==true && enemies.get(j).isVisible()==true && 
 						getDistanceBetweenP(player.getBullets().get(i).getPosX(), enemies.get(j).getPosX(),
-							player.getBullets().get(i).getPosY(), enemies.get(j).getPosY())<enemies.get(j).getEnemySize()/2) {
+						player.getBullets().get(i).getPosY(), enemies.get(j).getPosY())<enemies.get(j).getEnemySize()) {
 					
 					enemies.get(j).setHealth(enemies.get(j).getHealth()-(player.getBullets().get(i).getDamage()));
 					player.getBullets().get(i).setVisible(false);
-					if(enemies.get(j).getHealth()==0) {
+					if(enemies.get(j).getHealth()<=0) {
 						points+=enemies.get(j).getPoints();
 						enemies.get(j).setVisible(false);
 						//eliminateEnemies(j);
@@ -228,7 +264,7 @@ public class PlayScreen {
 		}else if(randomFactor == 7 || randomFactor == 8 ){
 			enemieX = new EnemyTank(app, posX, posY,minutes+1,height, t1, t2, t3);
 		}else {
-			enemieX = new EnemyShooter(app, posX, posY,minutes+2, s1, s2, s3, s4, s5, s6, s7, s8);
+			enemieX = new EnemyShooter(app, posX, posY,minutes+2, s1, s2, s3, s4, s5, s6, s7, s8, br);
 		}
 		enemies.add(enemieX);
 	}
@@ -268,5 +304,19 @@ public class PlayScreen {
 	public void setPlayer(SpaceShip player) {
 		this.player = player;
 	}
+
+	public int getMinutes() {
+		return minutes;
+	}
+
+	public int getSeconds() {
+		return seconds;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+	
+	
 	
 }

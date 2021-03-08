@@ -34,7 +34,7 @@ public class EnemyTank extends Enemy{
 			
 			frameC++;
 			app.fill(80,160,60);
-			app.circle(posX, posY, enemySize);
+			//app.circle(posX, posY, enemySize);
 			if(frameC>0 && frameC <=10) {
 				app.image(t1,posX-enemySize, posY-enemySize,enemySize+70,enemySize+70);	
 			}else if(frameC>10 && frameC<=20) {

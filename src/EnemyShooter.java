@@ -17,11 +17,12 @@ public class EnemyShooter extends Enemy{
 	PImage s6;
 	PImage s7;
 	PImage s8;
+	PImage b;
 	int frameC;
 	
 	
 	public EnemyShooter(PApplet app, int posX, int posY,int speed, PImage s1, PImage s2,
-			PImage s3, PImage s4, PImage s5, PImage s6, PImage s7, PImage s8) {
+			PImage s3, PImage s4, PImage s5, PImage s6, PImage s7, PImage s8, PImage b) {
 		super(app, posX, posY,speed);
 		points = 24;
 		health = 3;
@@ -40,6 +41,7 @@ public class EnemyShooter extends Enemy{
 		this.s6 = s6;
 		this.s7 = s7;
 		this.s8 = s8;
+		this.b = b;
 		frameC = 20;
 	}
 	 
@@ -49,7 +51,7 @@ public class EnemyShooter extends Enemy{
 		frameC++;
 		if(visible && health>0) {
 			app.fill(180,180,140);
-			app.circle(posX, posY, enemySize);
+			//app.circle(posX, posY, enemySize);
 			//test
 			if(frameC>0 && frameC<=8) {
 				app.image(s1,posX-enemySize, posY-enemySize, (3*enemySize)-10, (2*enemySize)-10);	
@@ -94,7 +96,7 @@ public class EnemyShooter extends Enemy{
 	}
 
 	private void generateBullet(PApplet app) {
-		Bullet bullet = new Bullet(posX, posY+15, 5, 6, app);
+		Bullet bullet = new Bullet(posX, posY+15, 5, 6, app, b);
 		enemyBullets.add(bullet);
 	}
 	

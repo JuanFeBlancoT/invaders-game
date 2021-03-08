@@ -24,7 +24,6 @@ public class Main extends PApplet {
 	}
 	
 	public void setup() {
-		
 		//Attributes
 		screen = 1;
 		up = false;
@@ -38,13 +37,12 @@ public class Main extends PApplet {
 		//relations
 		playScreen = new PlayScreen(this, width, height);
 		menuScreen = new MenuScreen(this, width, height);
-		endScreen = new EndScreen(this, width, height);
+		endScreen = new EndScreen(this, width);
 		instructionScreen = new InstrucScreen(this, width);
 		
 	}
 	
 	public void draw() {
-		background(40);
 		textFont(font);
 		if(screen==1) {
 			menuScreen.loadScreen(this);
@@ -54,8 +52,19 @@ public class Main extends PApplet {
 			if(playScreen.getPlayer().getLifes()>0) {
 				playScreen.screenEvents(this);
 				keyEvents();
+				if(!up && !down) {
+					playScreen.getPlayer().setStage(0);
+				}
 			}else {
+				int minutes = playScreen.getMinutes();
+				int seconds = playScreen.getSeconds();
+				int score = playScreen.getPoints();
+				
+				endScreen.setSeconds(seconds);
+				endScreen.setMinutes(minutes);
+				endScreen.setPoints(score);
 				screen = 4;
+				
 			}
 		}else {
 			endScreen.loadScreen(this);
@@ -67,9 +76,11 @@ public class Main extends PApplet {
 		switch(key) {
 			case 'w':
 				up = true;
+				down = false;
 				break;
 			case 'd':
 				down = true;
+				up = false;
 				break;
 			case 'a':
 				dash = true;
@@ -120,12 +131,14 @@ public class Main extends PApplet {
 		
 		if(screen == 3) {
 			if(up) {
-				playScreen.getPlayer().moveShip(height, false);
+				playScreen.getPlayer().moveShip(height, false,this);
 				playScreen.getPlayer().setDir(false);
+				playScreen.getPlayer().setStage(2);
 			}
 			if(down) {
-				playScreen.getPlayer().moveShip(height, true);
+				playScreen.getPlayer().moveShip(height, true,this);
 				playScreen.getPlayer().setDir(true);
+				playScreen.getPlayer().setStage(1);
 			}
 			if(dash) {
 				playScreen.getPlayer().shipDash(height);
@@ -171,6 +184,13 @@ public class Main extends PApplet {
 		}else {
 			instructionScreen.setBtnP(false);
 		}
+		
+		if(screen==4 && mouseX>715 && mouseX<895 && mouseY>740 && mouseY<775) {
+			endScreen.setBtnP(true);
+		}else {
+			endScreen.setBtnP(false);
+		}
+		
 	}
 	
 	public void mouseClicked() {
@@ -190,7 +210,7 @@ public class Main extends PApplet {
 			screen = 3;
 		}
 		
-		if(screen==4 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+60 && mouseY<(height/2)+120) {
+		if(screen==4 && mouseX>715 && mouseX<895 && mouseY>740 && mouseY<775) {
 			resetPlayScreen();
 			screen = 3;
 			System.out.println("RESET");

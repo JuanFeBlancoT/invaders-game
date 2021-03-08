@@ -33,7 +33,7 @@ public class EnemyFlash extends Enemy{
 		frameC++;
 		if(visible && health>0) {
 			app.fill(220,130,20);
-			app.circle(posX, posY, enemySize);
+			//app.circle(posX, posY, enemySize);
 			if(frameC>0 && frameC<=8) {
 				app.image(e1,posX, posY-75,5*enemySize-10, 3*enemySize-10);	
 			}else if(frameC>8 && frameC<=16) {
