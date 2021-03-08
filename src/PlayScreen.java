@@ -137,10 +137,9 @@ public class PlayScreen {
 			
 		for (int j = 0; j < enemies.size() && enemies.get(j)!=null; j++) {
 				
-			//enemy colliding with 
-			if(enemies.get(j).isVisible()==true && 
-					Math.sqrt((Math.pow((player.getPosX()-enemies.get(j).getPosX()), 2))+
-					(Math.pow((player.getPosY()-enemies.get(j).getPosY()), 2)))<player.getShipSize()) {
+			//enemy colliding with player
+			if(enemies.get(j).isVisible()==true && getDistanceBetweenP(player.getPosX(), enemies.get(j).getPosX(),
+					player.getPosY(),enemies.get(j).getPosY())<player.getShipSize()) {
 				
 				if(player.isVulnerable()) {
 					player.setLifes(player.getLifes()-enemies.get(j).getDamage());
@@ -159,9 +158,8 @@ public class PlayScreen {
 			//enemy gets shot
 			for (int i = 0; i < player.getBullets().size(); i++) {
 				if(player.getBullets().get(i).isVisible()==true && enemies.get(j).isVisible()==true && 
-						Math.sqrt((Math.pow((player.getBullets().get(i).getPosX()-enemies.get(j).getPosX()), 2))+
-						(Math.pow((player.getBullets().get(i).getPosY()-enemies.get(j).getPosY()), 2)))<
-						enemies.get(j).getEnemySize()/2) {
+						getDistanceBetweenP(player.getBullets().get(i).getPosX(), enemies.get(j).getPosX(),
+							player.getBullets().get(i).getPosY(), enemies.get(j).getPosY())<enemies.get(j).getEnemySize()/2) {
 					
 					enemies.get(j).setHealth(enemies.get(j).getHealth()-(player.getBullets().get(i).getDamage()));
 					player.getBullets().get(i).setVisible(false);
@@ -178,10 +176,9 @@ public class PlayScreen {
 			if(enemies.get(j) instanceof EnemyShooter) {
 				for (int k = 0; k < ((EnemyShooter)enemies.get(j)).getEnemyBullets().size() ; k++) {
 										
-					if(((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).isVisible()==true &&
-							Math.sqrt((Math.pow((player.getPosX()-((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).getPosX()), 2)))+
-							Math.sqrt((Math.pow((player.getPosY()-((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).getPosY()), 2)))<
-							player.getShipSize()/2) {
+					if(((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).isVisible()==true && 
+							getDistanceBetweenP(player.getPosX(), ((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).getPosX(),
+							player.getPosY(), ((EnemyShooter)enemies.get(j)).getEnemyBullets().get(k).getPosY()) <player.getShipSize()/2) {								
 						
 						if(player.isVulnerable()) {
 							player.setLifes(player.getLifes()-enemies.get(j).getDamage());
@@ -195,7 +192,7 @@ public class PlayScreen {
 	}//end handleImpacts
 	
 	public int getDistanceBetweenP(int x1, int x2, int y1, int y2) {
-		int distanceB =	(int) (Math.sqrt(Math.pow(x1-x2, 2))+(Math.pow(y1-y2, 2)));
+		int distanceB =	(int) (Math.sqrt(Math.pow(x1-x2, 2))+(Math.sqrt(Math.pow(y1-y2, 2))));
 		return distanceB;
 	}
 	
