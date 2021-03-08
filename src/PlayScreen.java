@@ -12,6 +12,7 @@ public class PlayScreen {
 	private SpaceShip player;
 	
 	//images
+	PImage bg;
 	//shooter
 	PImage s1;
 	PImage s2;
@@ -34,6 +35,14 @@ public class PlayScreen {
 	//roto
 	PImage ro1;
 	PImage ro2;
+	//eye
+	PImage e1;
+	PImage e2;
+	PImage e3;
+	PImage e4;
+	PImage e5;
+	PImage e6;
+	
 	
 	
 	public PlayScreen(PApplet app, int width, int height) {
@@ -52,6 +61,7 @@ public class PlayScreen {
 	}
 	
 	private void loadImages(PApplet app) {
+		bg = app.loadImage("img/interfaces/bgp.png");
 		//shooter
 		s1 = app.loadImage("img/shooterImg/sh1.png");
 		s2 = app.loadImage("img/shooterImg/sh2.png");
@@ -74,11 +84,19 @@ public class PlayScreen {
 		//roto
 		ro1 = app.loadImage("img/rotoImg/ro1.png");
 		ro2 = app.loadImage("img/rotoImg/ro2.png");
+		//eye
+		e1 = app.loadImage("img/eyeImg/e1.png");
+		e2 = app.loadImage("img/eyeImg/e2.png");
+		e3 = app.loadImage("img/eyeImg/e3.png");
+		e4 = app.loadImage("img/eyeImg/e4.png");
+		e5 = app.loadImage("img/eyeImg/e5.png");
+		e6 = app.loadImage("img/eyeImg/e6.png");
 		
 	}
 
 	public void screenEvents(PApplet app) {
 			 //app.rect(0, 0, 1600,112);
+		app.image(bg, 0, 100);
 		for (int i = 0; i < player.getLifes(); i++) {
 			app.fill(80,180,60);
 			app.circle((i*20)+15, 20, 10);
@@ -219,7 +237,7 @@ public class PlayScreen {
 		}else if(randomFactor == 4 || randomFactor == 5){
 			enemieX = new EnemyShifter(app, posX, posY,minutes+1, height,ro1,ro2);
 		}else if(randomFactor == 6 ){
-			enemieX = new EnemyFlash(app, posX, posY,minutes+10);
+			enemieX = new EnemyFlash(app, posX, posY,minutes+10, e1,e2,e3,e4,e5,e6);
 		}else if(randomFactor == 7 || randomFactor == 8 ){
 			enemieX = new EnemyTank(app, posX, posY,minutes+1,height, t1, t2, t3);
 		}else {

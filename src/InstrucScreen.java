@@ -48,5 +48,6 @@ public class InstrucScreen {
 	public void setBtnB(boolean btnB) {
 		this.btnB = btnB;
 	}
+	
 		
 }
