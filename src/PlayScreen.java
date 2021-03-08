@@ -14,36 +14,17 @@ public class PlayScreen {
 	//images
 	PImage bg;
 	//shooter
-	PImage s1;
-	PImage s2;
-	PImage s3;
-	PImage s4;
-	PImage s5;
-	PImage s6;
-	PImage s7;
-	PImage s8;
+	PImage s1,s2,s3,s4,s5,s6,s7,s8;
 	//basic
-	PImage b1;
-	PImage b2;
-	PImage b3;
-	PImage b4;
-	PImage b5;
+	PImage b1,b2,b3,b4,b5;
 	//tank
-	PImage t1;
-	PImage t2;
-	PImage t3;
+	PImage t1,t2,t3;
 	//roto
-	PImage ro1;
-	PImage ro2;
+	PImage ro1,ro2;
 	//eye
-	PImage e1;
-	PImage e2;
-	PImage e3;
-	PImage e4;
-	PImage e5;
-	PImage e6;
-	
-	
+	PImage e1,e2,e3,e4,e5,e6;
+	//doomFist
+	PImage df1,df2,df3,df4;
 	
 	public PlayScreen(PApplet app, int width, int height) {
 		player = new SpaceShip(app);
@@ -91,6 +72,11 @@ public class PlayScreen {
 		e4 = app.loadImage("img/eyeImg/e4.png");
 		e5 = app.loadImage("img/eyeImg/e5.png");
 		e6 = app.loadImage("img/eyeImg/e6.png");
+		//doomFist
+		df1 = app.loadImage("img/doomfImg/df1.png");
+		df2 = app.loadImage("img/doomfImg/df2.png");
+		df3 = app.loadImage("img/doomfImg/df3.png");
+		df4 = app.loadImage("img/doomfImg/df4.png");
 		
 	}
 
@@ -99,7 +85,7 @@ public class PlayScreen {
 		app.image(bg, 0, 100);
 		for (int i = 0; i < player.getLifes(); i++) {
 			app.fill(80,180,60);
-			app.circle((i*20)+15, 20, 10);
+			app.circle((i*20)+15, 50, 10);
 		}
 			deleteEnemies();
 			player.drawShip(app);
@@ -118,11 +104,10 @@ public class PlayScreen {
 			}
 			
 			handleImpacts();
-			
 			timer(app);
 			//test
 			app.textSize(30);
-			app.text("Points: "+points, 1400, 30);
+			app.text("Points: "+points, 1350, 60);
 			
 	}
 	
@@ -138,11 +123,11 @@ public class PlayScreen {
 		}
 		app.fill(255);
 		if(minutes<10 && seconds<10) {
-			app.text("0"+minutes+":0"+seconds, 1250, 30);
+			app.text("0"+minutes+":0"+seconds, 1200, 60);
 		}else if(minutes<10 && seconds>10){
-			app.text("0"+minutes+":"+seconds, 1250, 30);
+			app.text("0"+minutes+":"+seconds, 1200, 60);
 		}else {
-			app.text(minutes+":"+seconds, 1250, 30);
+			app.text(minutes+":"+seconds, 1200, 30);
 		}
 	}
 
@@ -209,6 +194,11 @@ public class PlayScreen {
 		}
 	}//end handleImpacts
 	
+	public int getDistanceBetweenP(int x1, int x2, int y1, int y2) {
+		int distanceB =	(int) (Math.sqrt(Math.pow(x1-x2, 2))+(Math.pow(y1-y2, 2)));
+		return distanceB;
+	}
+	
 	public void generateEnemies(PApplet app) {
 		int posX = (int) (Math.random()*100)+1650;
 		int posY = (int) (Math.random()*700)+150;
@@ -233,7 +223,7 @@ public class PlayScreen {
 		if(randomFactor==0 || randomFactor ==1) {
 			enemieX = new EnemyBasic(app, posX, posY,minutes+3, b1, b2, b3, b4, b5);
 		}else if(randomFactor == 2 || randomFactor == 3){
-			enemieX = new EnemyBasicBuff(app, posX, posY,minutes+4);
+			enemieX = new EnemyBasicBuff(app, posX, posY,minutes+4,df4,df1,df2,df3);
 		}else if(randomFactor == 4 || randomFactor == 5){
 			enemieX = new EnemyShifter(app, posX, posY,minutes+1, height,ro1,ro2);
 		}else if(randomFactor == 6 ){

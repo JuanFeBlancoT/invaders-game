@@ -2,7 +2,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class InstrucScreen {
-	private int width, height;
+	private int width;
 	boolean btnP, btnB;
 	PImage instructions;
 	PImage bp1;
@@ -10,10 +10,9 @@ public class InstrucScreen {
 	PImage bb1;
 	PImage bb2;
 	
-	public InstrucScreen(PApplet app, int width, int height) {
+	public InstrucScreen(PApplet app, int width) {
 		
 		this.width = width;
-		this.height = height;
 		btnP = false;
 		btnB = false;
 		

@@ -15,7 +15,7 @@ public class EnemyFlash extends Enemy{
 		super(app, posX, posY,speed);
 		points = 17;
 		health = 1;
-		enemySize = 40;
+		enemySize = 50;
 		speed += 10;
 		damage = 2;
 		visible = true;
@@ -33,19 +33,19 @@ public class EnemyFlash extends Enemy{
 		frameC++;
 		if(visible && health>0) {
 			app.fill(220,130,20);
-			//app.circle(posX, posY, enemySize);
+			app.circle(posX, posY, enemySize);
 			if(frameC>0 && frameC<=8) {
-				app.image(e1,posX-enemySize, posY-enemySize/2,5*enemySize, 3*enemySize);	
+				app.image(e1,posX, posY-75,5*enemySize-10, 3*enemySize-10);	
 			}else if(frameC>8 && frameC<=16) {
-				app.image(e2,posX-enemySize, posY-enemySize/2,5*enemySize, 3*enemySize);	
+				app.image(e2,posX, posY-75,5*enemySize-10, 3*enemySize-10);	
 			}else if(frameC>16 && frameC<=24) {
-				app.image(e3,posX-enemySize, posY-enemySize/2,5*enemySize, 3*enemySize);	
+				app.image(e3,posX, posY-75,5*enemySize-10, 3*enemySize-10);	
 			}else if(frameC>24 && frameC<=32) {
-				app.image(e4,posX-enemySize, posY-enemySize/2,5*enemySize, 3*enemySize);	
+				app.image(e4,posX, posY-75,5*enemySize-10, 3*enemySize-10);	
 			}else if(frameC>32 && frameC<=40) {
-				app.image(e5,posX-enemySize, posY-enemySize/2,5*enemySize, 3*enemySize);	
+				app.image(e5,posX, posY-75,5*enemySize-10, 3*enemySize-10);	
 			}else if(frameC>40 && frameC<=48) {
-				app.image(e6,posX-enemySize, posY-enemySize/2,5*enemySize, 3*enemySize);
+				app.image(e6,posX, posY-75,5*enemySize-10, 3*enemySize-10);
 				if(frameC==48) {
 					frameC=0;
 				}

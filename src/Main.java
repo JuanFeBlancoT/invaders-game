@@ -1,5 +1,5 @@
 import processing.core.PApplet;
-import processing.core.PImage;
+import processing.core.PFont;
 
 public class Main extends PApplet {
 	public static void main (String[] args) {
@@ -11,6 +11,7 @@ public class Main extends PApplet {
 	public int height = 900;
 	private int screen;
 	private boolean up, down, dash, shield, shoot, opShoot, shockWave;
+	private PFont font;
 	//relations
 	private PlayScreen playScreen;
 	private MenuScreen menuScreen;
@@ -33,16 +34,18 @@ public class Main extends PApplet {
 		shoot = false;
 		opShoot = false;
 		shockWave = false;
+		font = createFont("data/COPRGTB.TTF", 35);
 		//relations
 		playScreen = new PlayScreen(this, width, height);
 		menuScreen = new MenuScreen(this, width, height);
 		endScreen = new EndScreen(this, width, height);
-		instructionScreen = new InstrucScreen(this, width, height);
+		instructionScreen = new InstrucScreen(this, width);
 		
 	}
 	
 	public void draw() {
 		background(40);
+		textFont(font);
 		if(screen==1) {
 			menuScreen.loadScreen(this);
 		}else if(screen == 2) {
