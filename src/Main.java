@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Main extends PApplet {
 	public static void main (String[] args) {
@@ -14,6 +15,8 @@ public class Main extends PApplet {
 	private PlayScreen playScreen;
 	private MenuScreen menuScreen;
 	private EndScreen endScreen;
+	private InstrucScreen instructionScreen;
+	
 	
 	public void settings() {
 		size(width,height);
@@ -34,6 +37,7 @@ public class Main extends PApplet {
 		playScreen = new PlayScreen(this, width, height);
 		menuScreen = new MenuScreen(this, width, height);
 		endScreen = new EndScreen(this, width, height);
+		instructionScreen = new InstrucScreen(this, width, height);
 		
 	}
 	
@@ -42,7 +46,7 @@ public class Main extends PApplet {
 		if(screen==1) {
 			menuScreen.loadScreen(this);
 		}else if(screen == 2) {
-			
+			instructionScreen.loadScreen(this);
 		}else if(screen==3) {
 			if(playScreen.getPlayer().getLifes()>0) {
 				playScreen.screenEvents(this);
@@ -152,6 +156,18 @@ public class Main extends PApplet {
 		}else {
 			menuScreen.setBtnPlay(false);
 		}
+		
+		if(screen==2 && mouseX>1120 && mouseX<1310 && mouseY>800 && mouseY<870) {
+			instructionScreen.setBtnB(true);
+		}else {
+			instructionScreen.setBtnB(false);
+		}
+		
+		if(screen==2 && mouseX>width-250 && mouseX<width-50 && mouseY>800 && mouseY<870) {
+			instructionScreen.setBtnP(true);
+		}else {
+			instructionScreen.setBtnP(false);
+		}
 	}
 	
 	public void mouseClicked() {
@@ -160,6 +176,14 @@ public class Main extends PApplet {
 		}
 		
 		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+170 && mouseY<(height/2)+230) {
+			screen = 3;
+		}
+		
+		if(screen==2 && mouseX>1120 && mouseX<1310 && mouseY>800 && mouseY<870) {
+			screen=1;
+		}
+		
+		if(screen==2 && mouseX>width-250 && mouseX<width-50 && mouseY>800 && mouseY<870) {
 			screen = 3;
 		}
 		
