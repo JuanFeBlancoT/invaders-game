@@ -31,6 +31,9 @@ public class PlayScreen {
 	PImage t1;
 	PImage t2;
 	PImage t3;
+	//roto
+	PImage ro1;
+	PImage ro2;
 	
 	
 	public PlayScreen(PApplet app, int width, int height) {
@@ -68,6 +71,9 @@ public class PlayScreen {
 		t1 = app.loadImage("img/tankImg/t1.png");
 		t2 = app.loadImage("img/tankImg/t2.png");
 		t3 = app.loadImage("img/tankImg/t3.png");
+		//roto
+		ro1 = app.loadImage("img/rotoImg/ro1.png");
+		ro2 = app.loadImage("img/rotoImg/ro2.png");
 		
 	}
 
@@ -211,7 +217,7 @@ public class PlayScreen {
 		}else if(randomFactor == 2 || randomFactor == 3){
 			enemieX = new EnemyBasicBuff(app, posX, posY,minutes+4);
 		}else if(randomFactor == 4 || randomFactor == 5){
-			enemieX = new EnemyShifter(app, posX, posY,minutes+1, height);
+			enemieX = new EnemyShifter(app, posX, posY,minutes+1, height,ro1,ro2);
 		}else if(randomFactor == 6 ){
 			enemieX = new EnemyFlash(app, posX, posY,minutes+10);
 		}else if(randomFactor == 7 || randomFactor == 8 ){

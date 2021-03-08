@@ -112,7 +112,7 @@ public class SpaceShip {
 		if(opBulletColdDown==0) {
 			Bullet bullet = new Bullet(posX, posY, 5, 17, app);
 			bullets.add(bullet);
-			opBulletColdDown = 900;
+			opBulletColdDown = 780;
 		}
 	}
 	
@@ -120,7 +120,7 @@ public class SpaceShip {
 		if(shockColdDown == 0) {
 			shockWave = true;
 			app.rect(0, 0, 100, 800);
-			shockColdDown = 960;
+			shockColdDown = 900;
 		}else {
 			shockWave = false;
 		}

@@ -140,6 +140,20 @@ public class Main extends PApplet {
 		}
 	}
 	
+	public void mouseMoved() {
+		if(screen ==1 && mouseX>(width/2)-185 && mouseX<(width/2)+150 && mouseY>(height/2)+20 && mouseY<(height/2)+105) {
+			menuScreen.setBtnIns(true);
+		}else {
+			menuScreen.setBtnIns(false);
+		}
+		
+		if(screen ==1 && mouseX>(width/2)-120 && mouseX<(width/2)+85 && mouseY>(height/2)+150 && mouseY<(height/2)+215) {
+			menuScreen.setBtnPlay(true);
+		}else {
+			menuScreen.setBtnPlay(false);
+		}
+	}
+	
 	public void mouseClicked() {
 		if(screen==1 && mouseX>(width/2)-90 && mouseX<(width/2)+90 && mouseY>(height/2)+30 && mouseY<(height/2)+90) {
 			screen = 2;
