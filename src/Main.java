@@ -17,6 +17,7 @@ public class Main extends PApplet {
 	private MenuScreen menuScreen;
 	private EndScreen endScreen;
 	private InstrucScreen instructionScreen;
+	private MusicSounds musicB;
 	
 	
 	public void settings() {
@@ -39,6 +40,7 @@ public class Main extends PApplet {
 		menuScreen = new MenuScreen(this, width, height);
 		endScreen = new EndScreen(this, width);
 		instructionScreen = new InstrucScreen(this, width);
+		musicB = new MusicSounds();
 		
 	}
 	
@@ -48,7 +50,7 @@ public class Main extends PApplet {
 			menuScreen.loadScreen(this);
 		}else if(screen == 2) {
 			instructionScreen.loadScreen(this);
-		}else if(screen==3) {
+		}else if(screen==3) {			
 			if(playScreen.getPlayer().getLifes()>0) {
 				playScreen.screenEvents(this);
 				keyEvents();
@@ -63,6 +65,7 @@ public class Main extends PApplet {
 				endScreen.setSeconds(seconds);
 				endScreen.setMinutes(minutes);
 				endScreen.setPoints(score);
+				musicB.playMusic("data/deathP.wav");
 				screen = 4;
 				
 			}

@@ -10,6 +10,7 @@ public class PlayScreen {
 	//relations
 	private ArrayList<Enemy>enemies;
 	private SpaceShip player;
+	private MusicSounds musicB;
 	
 	//images
 	PImage bg, bar;
@@ -42,6 +43,7 @@ public class PlayScreen {
 		
 		player = new SpaceShip(app, nn,nab,nar,sh, line,ba,bm);
 		enemies = new ArrayList<>();
+		musicB = new MusicSounds();
 	
 	}
 	
@@ -96,6 +98,7 @@ public class PlayScreen {
 
 	public void screenEvents(PApplet app) {
 			 //app.rect(0, 0, 1600,112);
+		System.out.println(enemies.size());
 		app.image(bg, 0, 100);
 		app.image(bar, 0, 0);
 		for (int i = 0; i < player.getLifes(); i++) {
@@ -181,6 +184,7 @@ public class PlayScreen {
 					player.setLifes(player.getLifes()-enemies.get(j).getDamage());
 				}
 				enemies.get(j).setVisible(false);
+				musicB.playMusic("data/deathE2.wav");
 				//eliminateEnemies(j);
 			}
 		
@@ -188,6 +192,7 @@ public class PlayScreen {
 			if( enemies.get(j).isVisible() && enemies.get(j).getPosX()<-enemies.get(j).getEnemySize()) {
 				player.setLifes(player.getLifes()-enemies.get(j).getDamage());
 				enemies.get(j).setVisible(false);
+				
 				//eliminateEnemies(j);
 			}
 			
@@ -201,6 +206,7 @@ public class PlayScreen {
 					player.getBullets().get(i).setVisible(false);
 					if(enemies.get(j).getHealth()<=0) {
 						points+=enemies.get(j).getPoints();
+						musicB.playMusic("data/deathE2.wav");
 						enemies.get(j).setVisible(false);
 						//eliminateEnemies(j);
 					}
