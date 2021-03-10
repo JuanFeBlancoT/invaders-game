@@ -5,7 +5,6 @@ public class Bullet {
 	
 	private int posX, posY, bulletSize, speed, damage;
 	private boolean visible;
-	private PApplet app;
 	PImage b;
 	
 	public Bullet(int posX, int posY, int damage, int speed, PApplet app, PImage b) {
@@ -13,13 +12,12 @@ public class Bullet {
 		this.speed = speed;
 		this.posX = posX;
 		this.posY = posY;
-		this.app= app;
 		visible = true;
 		this.damage = damage;
 		this.b = b;
 	}
 	
-	public void drawBullet() {
+	public void drawBullet(PApplet app) {
 		if(visible) {
 			app.image(b, posX-18, posY-18);
 			//app.circle(posX, posY, bulletSize);

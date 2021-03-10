@@ -101,12 +101,7 @@ public class MenuScreen {
 		if(frameC==5) {
 			frameC=0;
 		}
-		
-		
-		
-		//app.rect((width/2)-90, (height/2)+30, 180, 60);
-			
-		//app.rect((width/2)-90, (height/2)+150, 180, 60);
+
 	}//end loadScreen
 	
 	public void setBtnPlay(boolean btnPlay) {

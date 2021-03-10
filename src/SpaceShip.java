@@ -12,7 +12,6 @@ public class SpaceShip {
 	PImage nn, nar, nab, sh, li, ba, bm;
 	//relations
 	private ArrayList<Bullet> bullets;
-	private MusicSounds musicB;
 	
 	public SpaceShip(PApplet app, PImage nn, PImage nar, PImage nab, PImage sh, PImage li, PImage ba, PImage bm) {
 		
@@ -41,7 +40,6 @@ public class SpaceShip {
 		this.bm = bm;
 		
 		bullets = new ArrayList<>();
-		musicB = new MusicSounds();
 		
 	}
 
@@ -106,7 +104,7 @@ public class SpaceShip {
 	
 	public void shipDash(int max) {
 		if(dashColdDown==0) {
-			musicB.playMusic("data/dash3.wav");
+			//musicB.playMusic("data/dash3.wav");
 			if(!dir && posY>375) {
 				posY-=220;
 				dashColdDown = 120;
@@ -127,19 +125,17 @@ public class SpaceShip {
 		if(shootColdDown==0) {
 			Bullet bullet = new Bullet(posX, posY, 1, 10, app, ba);
 			bullets.add(bullet);
-			musicB.playMusic("data/shotB.wav");
-			
-			
+			//musicB.playMusic("data/shotB.wav");
 			shootColdDown = 20;
 			
 		}
 	}
-	
+
 	public void generateOpBullet(PApplet app){
 		if(opBulletColdDown==0) {
 			Bullet bullet = new Bullet(posX, posY, 5, 17, app, bm);
 			bullets.add(bullet);
-			musicB.playMusic("data/explo.wav");
+			//musicB.playMusic("data/explo.wav");
 			opBulletColdDown = 780;
 		}
 	}
@@ -155,9 +151,9 @@ public class SpaceShip {
 		return shockWave;
 	}
 	
-	public void shoot() {
+	public void shoot(PApplet app) {
 		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).drawBullet();
+			bullets.get(i).drawBullet(app);
 			bullets.get(i).move();
 		}
 	}
@@ -175,7 +171,7 @@ public class SpaceShip {
 		
 		if(shieldColdDown == 0) {
 			shieldLoose = true;
-			musicB.playMusic("data/shieldS.wav");
+			//musicB.playMusic("data/shieldS.wav");
 			shieldColdDown = 600;
 		}
 	}
@@ -259,6 +255,10 @@ public class SpaceShip {
 
 	public int getShockColdDown() {
 		return shockColdDown;
+	}
+	
+	public int getShootColdDown() {
+		return shootColdDown;
 	}
 	
 	

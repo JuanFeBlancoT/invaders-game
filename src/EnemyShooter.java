@@ -91,7 +91,7 @@ public class EnemyShooter extends Enemy{
 			bulletsC--;
 		}
 		
-		shoot();
+		shoot(app);
 		eliminateBullet();
 	}
 
@@ -104,9 +104,9 @@ public class EnemyShooter extends Enemy{
 		setPosX(posX-speed);
 	}
 	
-	public void shoot() {
+	public void shoot(PApplet app) {
 		for (int i = 0; i < enemyBullets.size() && visible; i++) {
-			enemyBullets.get(i).drawBullet();
+			enemyBullets.get(i).drawBullet(app);
 			enemyBullets.get(i).moveBackwards();
 		}
 	}

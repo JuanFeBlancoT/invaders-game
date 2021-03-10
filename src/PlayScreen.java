@@ -107,7 +107,7 @@ public class PlayScreen {
 		}
 			deleteEnemies();
 			player.drawShip(app);
-			player.shoot();
+			player.shoot(app);
 			enemiesTimeGen++;
 			player.eliminateBullet(width);
 			//enemies generation

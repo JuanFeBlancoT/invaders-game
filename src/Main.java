@@ -7,8 +7,8 @@ public class Main extends PApplet {
 	}
 	
 	//Attributes
-	public int width = 1600;
-	public int height = 900;
+	private int width = 1600;
+	private int height = 900;
 	private int screen;
 	private boolean up, down, dash, shield, shoot, opShoot, shockWave;
 	private PFont font;
@@ -143,19 +143,23 @@ public class Main extends PApplet {
 				playScreen.getPlayer().setDir(true);
 				playScreen.getPlayer().setStage(1);
 			}
-			if(dash) {
+			if(dash && playScreen.getPlayer().getDashColdDown()==0) {
 				playScreen.getPlayer().shipDash(height);
+				musicB.playMusic("data/dash3.wav");
 			}
-			if(shield) {
+			if(shield && playScreen.getPlayer().getShieldColdDown()==0) {
 				playScreen.getPlayer().shield();
+				musicB.playMusic("data/shieldS.wav");
 				shield = false;
 			}
-			if(shoot) {
+			if(shoot && playScreen.getPlayer().getShootColdDown()==0) {
 				playScreen.getPlayer().generateBullet(this);
+				musicB.playMusic("data/shotB.wav");
 				shoot = false;
 			}
-			if(opShoot) {
+			if(opShoot && playScreen.getPlayer().getOpBulletColdDown()==0) {
 				playScreen.getPlayer().generateOpBullet(this);
+				musicB.playMusic("data/explo.wav");
 			}
 			if(shockWave) {
 				playScreen.lateralShockWave(this);

@@ -3,7 +3,6 @@ import processing.core.PImage;
 
 public class EnemyBasic extends Enemy{
 	
-	
 	PImage b1;
 	PImage b2;
 	PImage b3;
